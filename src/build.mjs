@@ -352,4 +352,6 @@ await put('robots.txt', robots);
 await put('llms.txt', llms(arts));
 await put('llms-full.txt', llmsFull(arts));
 await put('_headers', headers);
+// Fichiers statiques copiés tels quels (vérification Google Search Console, etc.)
+await cp('public', OUT, { recursive: true }).catch(() => {});
 console.log(`OK : ${arts.length} articles, ${arts.length + 3} pages -> ${OUT}/ (${BASE})`);
