@@ -114,6 +114,7 @@ function layout({ path, title, description, body, type = 'website', jsonld = [],
 <link rel="canonical" href="${url}">
 <meta name="robots" content="${robots || 'index,follow,max-image-preview:large,max-snippet:-1'}">
 <meta name="theme-color" content="#c00000">
+${cfg.googleSiteVerification ? `<meta name="google-site-verification" content="${esc(cfg.googleSiteVerification)}">` : ''}
 <meta property="og:type" content="${type}">
 <meta property="og:site_name" content="${esc(cfg.name)}">
 <meta property="og:locale" content="${cfg.locale}">
