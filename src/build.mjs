@@ -1,6 +1,7 @@
 // Générateur de site statique sans dépendance. Usage : node src/build.mjs
 import { readFile, writeFile, mkdir, readdir, rm, cp } from 'node:fs/promises';
 import { join } from 'node:path';
+import { existsSync } from 'node:fs';
 
 const cfg = JSON.parse(await readFile('site.config.json', 'utf8'));
 // Priorité : SITE_URL, puis le domaine de production Vercel (automatique), puis site.config.json
@@ -13,6 +14,13 @@ const slugify = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').
 const dateFr = (d) => new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
 // ---------- Markdown minimal ----------
+function figure(alt, src, w, h, cap) {
+  const small = src.replace(/\.webp$/, '-640.webp');
+  const has = w && h && src.startsWith('/images/') && existsSync(join('public', small));
+  const sw = has ? (+w >= +h ? 640 : Math.round((640 * w) / h)) : 0;
+  const portrait = w && h && +h > +w;
+  return `<figure${portrait ? ' class="v"' : ''}><img src="${src}" alt="${esc(alt)}"${w ? ` width="${w}" height="${h}"` : ''}${has ? ` srcset="${small} ${sw}w, ${src} ${w}w" sizes="(min-width:46rem) 46rem, 100vw"` : ''} loading="lazy" decoding="async">${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure>`;
+}
 function inline(t) {
   t = esc(t);
   t = t.replace(/`([^`]+)`/g, '<code>$1</code>');
@@ -38,6 +46,7 @@ function md(src) {
       html.push(`<h${lvl} id="${id}">${inline(text)}</h${lvl}>`); i++; continue;
     }
     if (/^---+$/.test(l.trim())) { html.push('<hr>'); i++; continue; }
+    if ((m = l.match(/^!\[([^\]]*)\]\((\S+?)(?: =(\d+)x(\d+))?(?: "([^"]*)")?\)$/))) { html.push(figure(m[1], m[2], m[3], m[4], m[5])); i++; continue; }
     if (l.startsWith('> ')) {
       const b = []; while (i < lines.length && lines[i].startsWith('> ')) b.push(lines[i++].slice(2));
       html.push(`<blockquote><p>${inline(b.join(' '))}</p></blockquote>`); continue;
@@ -100,7 +109,7 @@ const css = (await readFile('src/style.css', 'utf8')).replace(/\/\*[\s\S]*?\*\//
 const ld = (o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`;
 const orgLd = { '@type': 'Organization', '@id': `${BASE}/#org`, name: cfg.name, url: `${BASE}/`, sameAs: cfg.partners.map((p) => p.url) };
 
-function layout({ path, title, description, body, type = 'website', jsonld = [], robots }) {
+function layout({ path, title, description, body, type = 'website', jsonld = [], robots, image }) {
   const url = `${BASE}${path}`;
   const fullTitle = path === '/' ? title : `${title} | ${cfg.name}`;
   const p0 = cfg.partners[0];
@@ -121,7 +130,8 @@ ${cfg.googleSiteVerification ? `<meta name="google-site-verification" content="$
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${url}">
-<meta name="twitter:card" content="summary">
+${image ? `<meta property="og:image" content="${BASE}${image}">\n<meta name="twitter:image" content="${BASE}${image}">` : ''}
+<meta name="twitter:card" content="${image ? 'summary_large_image' : 'summary'}">
 <link rel="alternate" type="application/rss+xml" title="${esc(cfg.name)}" href="${BASE}/rss.xml">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23c00000'/%3E%3Cpath d='M6 23h20M9 23v-6M13 23v-9M17 23v-6M21 23v-9M25 23v-6' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E">
 <style>${css}</style>
@@ -203,7 +213,7 @@ function homePage(arts) {
 <section class="sec"><div class="w">
 <p class="eyebrow">Instruments</p>
 <h2>Bien choisir et bien utiliser vos <em>instruments</em></h2>
-<ul class="inst">${cfg.instruments.map((i) => { const a = i.article && bySlug(i.article); return `<li class="icard"><strong>${esc(i.name)}</strong><span>${esc(i.blurb)}</span><span class="links">${a ? `<a href="/blog/${a.slug}/">Lire le guide</a>` : ''}<a class="shop" href="${i.shop}">Voir en boutique →</a></span></li>`; }).join('')}</ul>
+<ul class="inst">${cfg.instruments.map((i) => { const a = i.article && bySlug(i.article); return `<li class="icard"><strong>${esc(i.name)}</strong><span>${esc(i.blurb)}</span><span class="links">${a ? `<a href="/blog/${a.slug}/">Lire le guide</a>` : ''}<a class="shop" href="${i.shop}">${i.shopLabel || 'Voir en boutique →'}</a></span></li>`; }).join('')}</ul>
 </div></section>
 <section class="sec soft"><div class="w">
 <p class="eyebrow">Glossaire</p>
@@ -360,18 +370,18 @@ ${a.html}
 ${partnersBox()}
 ${rel.length ? `<section class="sec soft"><div class="w"><p class="eyebrow">À lire aussi</p><ul class="grid">${rel.map(articleItem).join('')}</ul></div></section>` : ''}`;
   const graph = [
-    { '@type': 'Article', '@id': `${url}#article`, headline: a.title, description: a.description, datePublished: a.date, dateModified: a.updated || a.date, inLanguage: cfg.lang, mainEntityOfPage: url, url, author: { '@type': 'Organization', name: cfg.author, url: `${BASE}/` }, publisher: { '@id': `${BASE}/#org` }, articleSection: a.category, wordCount: stripMd(a.body).split(/\s+/).length },
+    { '@type': 'Article', '@id': `${url}#article`, headline: a.title, description: a.description, datePublished: a.date, dateModified: a.updated || a.date, inLanguage: cfg.lang, mainEntityOfPage: url, url, author: { '@type': 'Organization', name: cfg.author, url: `${BASE}/` }, publisher: { '@id': `${BASE}/#org` }, articleSection: a.category, ...(a.image ? { image: `${BASE}${a.image}` } : {}), wordCount: stripMd(a.body).split(/\s+/).length },
     orgLd,
     crumbs([['Accueil', '/'], ['Articles', '/blog/'], [a.title, `/blog/${a.slug}/`]]),
   ];
   if (a.faq.length) graph.push({ '@type': 'FAQPage', mainEntity: a.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: stripMd(f.a.join(' ')) } })) });
-  return layout({ path: `/blog/${a.slug}/`, title: a.title, description: a.description, body, type: 'article', jsonld: [{ '@context': 'https://schema.org', '@graph': graph }] });
+  return layout({ path: `/blog/${a.slug}/`, title: a.title, description: a.description, body, type: 'article', image: a.image, jsonld: [{ '@context': 'https://schema.org', '@graph': graph }] });
 }
 
 const notFound = () => layout({ path: '/404.html', title: 'Page introuvable', description: 'Cette page n\'existe pas.', robots: 'noindex', body: '<section class="hero small"><div class="w"><h1>Page <em>introuvable</em>.</h1><p class="lead">Cette page n\'existe pas.</p><p class="actions"><a class="btn" href="/">Retour à l\'accueil</a><a class="btn ghost" href="/blog/">Tous les articles</a></p></div></section>' });
 
 // ---------- Fichiers SEO / IA ----------
-const sitemap = (urls) => `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(([p, d]) => `<url><loc>${BASE}${p}</loc><lastmod>${d}</lastmod></url>`).join('\n')}\n</urlset>\n`;
+const sitemap = (urls) => `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${urls.map(([p, d, imgs]) => `<url><loc>${BASE}${p}</loc><lastmod>${d}</lastmod>${(imgs || []).map((u) => `<image:image><image:loc>${BASE}${u}</image:loc></image:image>`).join('')}</url>`).join('\n')}\n</urlset>\n`;
 
 const rss = (arts) => `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel><title>${esc(cfg.name)}</title><link>${BASE}/</link><description>${esc(cfg.description)}</description><language>${cfg.lang}</language>
@@ -450,7 +460,7 @@ await put('a-propos/index.html', aboutPage());
 for (const r of Object.keys(cfg.rubriques)) await put(`rubrique/${rubSlug(r)}/index.html`, rubriquePage(r, arts));
 await put('404.html', notFound());
 const last = arts[0]?.updated || arts[0]?.date || new Date().toISOString().slice(0, 10);
-await put('sitemap.xml', sitemap([['/', last], ['/blog/', last], ['/glossaire/', last], ['/a-propos/', last], ...Object.keys(cfg.rubriques).map((r) => [rubPath(r), last]), ...arts.map((a) => [`/blog/${a.slug}/`, a.updated || a.date])]));
+await put('sitemap.xml', sitemap([['/', last], ['/blog/', last], ['/glossaire/', last], ['/a-propos/', last], ...Object.keys(cfg.rubriques).map((r) => [rubPath(r), last]), ...arts.map((a) => [`/blog/${a.slug}/`, a.updated || a.date, [...a.body.matchAll(/!\[[^\]]*\]\((\/images\/[^\s)]+)/g)].map((m) => m[1])])]));
 await put('rss.xml', rss(arts));
 await put('robots.txt', robots);
 await put('llms.txt', llms(arts));

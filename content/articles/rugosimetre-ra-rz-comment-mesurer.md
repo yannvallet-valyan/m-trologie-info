@@ -44,6 +44,10 @@ Les définitions et conditions de mesure relèvent de la série de normes ISO 21
 
 Un **étalon de rugosité**, pièce dont le Ra est certifié, permet de vérifier l'appareil avant utilisation. Si l'écart dépasse la tolérance de l'étalon, il faut régler ou faire contrôler l'instrument. L'étalonnage complet inclut le palpeur, le déplacement et le calcul, avec un certificat et une [incertitude](/blog/incertitude-de-mesure-guide/). Pour l'étalonnage, la réparation ou un devis, voir les [services de B MESURE](https://bmesure.fr/services/).
 
+## Rugosimètre ou profilomètre ?
+
+Si vous devez aussi contrôler des formes, des rayons ou des contours, un profilomètre CNC mesure le profil et la rugosité sur la même pièce. Voir notre guide du [profilomètre](/blog/profilometre-mesure-de-profil-et-de-rugosite/) et la [gamme T4HD de B MESURE](https://bmesure.fr/profilometre/).
+
 ## Questions fréquentes
 
 ### Quelle différence entre Ra et Rz ?

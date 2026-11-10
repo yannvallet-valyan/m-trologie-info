@@ -226,5 +226,17 @@
   "def": "Longueur sur laquelle le profil est évalué et filtré pour séparer rugosité et ondulation. Valeurs courantes : 0,08 ; 0,25 ; 0,8 ; 2,5 et 8 mm.",
   "article": "rugosimetre-ra-rz-comment-mesurer",
   "shop": null
+ },
+ {
+  "term": "Profilomètre",
+  "def": "Appareil à palpeur (contact) ou optique (sans contact) qui mesure le profil, le contour et la rugosité d'une surface, avec traitement logiciel du profil.",
+  "article": "profilometre-mesure-de-profil-et-de-rugosite",
+  "shop": "https://bmesure.fr/profilometre/"
+ },
+ {
+  "term": "Paliers à air",
+  "def": "Guidage sans frottement par film d'air, utilisé sur certains instruments de précision pour réduire le bruit de fond et améliorer la répétabilité.",
+  "article": "profilometre-mesure-de-profil-et-de-rugosite",
+  "shop": null
  }
 ]
