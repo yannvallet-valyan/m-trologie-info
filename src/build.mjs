@@ -84,6 +84,15 @@ async function loadArticles() {
 }
 
 // ---------- Gabarit ----------
+// Engrenage vectoriel (trait seul) : n dents, rayon extérieur ro, rayon de pied ri
+function gear(cls, n, ro, ri) {
+  const s = (2 * Math.PI) / n, pt = (r, a) => `${(r * Math.cos(a)).toFixed(1)},${(r * Math.sin(a)).toFixed(1)}`;
+  let d = '';
+  for (let i = 0; i < n; i++) { const a = i * s; d += `${pt(ri, a)} ${pt(ro, a + s * 0.15)} ${pt(ro, a + s * 0.45)} ${pt(ri, a + s * 0.6)} `; }
+  return `<svg class="gear ${cls}" viewBox="-100 -100 200 200" fill="none" stroke="currentColor" stroke-width="1.2"><polygon points="${d.trim()}"/><circle r="${(ri * 0.72).toFixed(1)}"/><circle r="${(ri * 0.28).toFixed(1)}"/><path d="M0 ${-ri * 0.72}V${-ri * 0.28}M0 ${ri * 0.72}V${ri * 0.28}M${-ri * 0.72} 0H${-ri * 0.28}M${ri * 0.72} 0H${ri * 0.28}"/></svg>`;
+}
+const bgLayer = `<div class="prog" aria-hidden="true"></div><div class="bg" aria-hidden="true"><i class="bgrid"></i><div class="ruler"><i></i></div>${gear('g1', 24, 98, 84)}${gear('g2', 12, 98, 82)}</div>`;
+
 const css = (await readFile('src/style.css', 'utf8')).replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s*([{}:;,>])\s*/g, '$1').replace(/;}/g, '}').trim();
 
 const ld = (o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`;
@@ -117,6 +126,7 @@ ${jsonld.map(ld).join('\n')}
 </head>
 <body>
 <a class="skip" href="#main">Aller au contenu</a>
+${bgLayer}
 <header class="hd"><div class="w bar">
 <a class="logo" href="/"><span class="mono" aria-hidden="true">MI</span>${esc(cfg.name)}</a>
 <nav aria-label="Navigation principale"><a href="/"${path === '/' ? ' aria-current="page"' : ''}>Présentation</a><a href="/blog/"${path.startsWith('/blog') ? ' aria-current="page"' : ''}>Articles</a><a class="btn sm" href="${p0.url}">${esc(p0.name)} →</a></nav>

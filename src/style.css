@@ -1,6 +1,6 @@
 /* Palette stricte : blanc, noir, rouge #C00000. CSS inline, zéro JS. */
-:root{--bg:#fff;--fg:#0a0a0a;--mut:#555;--red:#c00000;--soft:#f5f5f5;--bd:#e3e3e3;--inv:#0a0a0a;--invfg:#fff;--invmut:#bdbdbd;--onred:#fff;color-scheme:light dark}
-@media(prefers-color-scheme:dark){:root{--bg:#0a0a0a;--fg:#fff;--mut:#b0b0b0;--soft:#141414;--bd:#2c2c2c;--inv:#1b1b1b;--invfg:#fff;--invmut:#bdbdbd}}
+:root{--bg:#fff;--fg:#0a0a0a;--mut:#555;--red:#c00000;--soft:#f5f5f5;--bd:#e3e3e3;--inv:#0a0a0a;--invfg:#fff;--invmut:#bdbdbd;--onred:#fff;--line:rgba(10,10,10,.06);--line2:rgba(10,10,10,.13);--tick:rgba(10,10,10,.4);color-scheme:light dark}
+@media(prefers-color-scheme:dark){:root{--bg:#0a0a0a;--fg:#fff;--mut:#b0b0b0;--soft:#141414;--bd:#2c2c2c;--inv:#1b1b1b;--invfg:#fff;--invmut:#bdbdbd;--line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.15);--tick:rgba(255,255,255,.45)}}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font:1.0625rem/1.7 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
@@ -122,3 +122,27 @@ th{background:var(--fg);color:var(--bg)}
 .chips{list-style:none;display:flex;flex-wrap:wrap;gap:.6rem;padding:0;margin:0}
 .chips a{display:inline-block;border:1px solid #555;padding:.4rem .9rem;color:var(--invfg);text-decoration:none;font-weight:600;font-size:.92rem}
 .chips a:hover{background:var(--red);border-color:var(--red);color:#fff}
+
+/* Fond technique : grille de bureau d'études, règle graduée et engrenages. Animé au défilement en CSS pur (scroll-driven animations), sans JavaScript. */
+.bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.bgrid{position:absolute;left:0;right:0;top:0;height:calc(100% + 480px);background-image:linear-gradient(var(--line2) 1px,transparent 1px),linear-gradient(90deg,var(--line2) 1px,transparent 1px),linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:240px 240px,240px 240px,48px 48px,48px 48px;will-change:transform}
+.ruler{position:absolute;left:0;top:0;bottom:0;width:14px;border-right:1px solid var(--line2);overflow:hidden}
+.ruler i{position:absolute;left:0;right:0;top:0;height:calc(100% + 1000px);background:repeating-linear-gradient(to bottom,var(--tick) 0 1px,transparent 1px 10px) left top/7px 100% no-repeat,repeating-linear-gradient(to bottom,var(--red) 0 2px,transparent 2px 50px) left top/14px 100% no-repeat;will-change:transform}
+.ruler:after{content:"";position:absolute;left:0;top:50%;border:6px solid transparent;border-left:9px solid var(--red);margin-top:-6px}
+.gear{position:absolute;color:var(--red);opacity:.16;will-change:transform}
+.g1{width:clamp(16rem,38vw,34rem);right:-8rem;bottom:-9rem}
+.g2{width:clamp(9rem,20vw,18rem);right:clamp(9rem,28vw,26rem);bottom:clamp(8rem,22vw,22rem);color:var(--fg);opacity:.09}
+.prog{position:fixed;top:0;left:0;right:0;height:3px;background:var(--red);z-index:20;transform:scaleX(0);transform-origin:0 50%;pointer-events:none}
+@media(min-width:60rem){.ruler{width:18px}}
+@media(prefers-reduced-motion:no-preference){@supports(animation-timeline:scroll()){
+@keyframes gm{to{transform:translateY(-480px)}}
+@keyframes rm{to{transform:translateY(-1000px)}}
+@keyframes sp{to{transform:rotate(360deg)}}
+@keyframes sr{to{transform:rotate(-720deg)}}
+@keyframes pg{to{transform:scaleX(1)}}
+.bgrid{animation:gm linear both;animation-timeline:scroll(root)}
+.ruler i{animation:rm linear both;animation-timeline:scroll(root)}
+.g1{animation:sp linear both;animation-timeline:scroll(root)}
+.g2{animation:sr linear both;animation-timeline:scroll(root)}
+.prog{animation:pg linear both;animation-timeline:scroll(root)}
+}}
