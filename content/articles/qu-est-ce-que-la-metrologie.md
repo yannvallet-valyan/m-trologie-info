@@ -3,6 +3,7 @@ title: Qu'est-ce que la métrologie ? Définition, domaines et enjeux
 description: La métrologie est la science de la mesure. Définition, trois grands domaines (scientifique, industrielle, légale), vocabulaire essentiel et raisons de l'appliquer en entreprise.
 date: 2026-10-01
 category: Fondamentaux
+featured: true
 related: pied-a-coulisse-guide-choix-et-verification,micrometre-guide-utilisation-et-etalonnage,etalonnage-verification-calibration
 ---
 

@@ -4,7 +4,7 @@
   "url": "https://metrologie-info.vercel.app",
   "lang": "fr",
   "locale": "fr_FR",
-  "author": "Équipe Métrologie Info",
+  "author": "Équipe B MESURE",
   "description": "Métrologie Info explique la métrologie simplement : étalonnage, incertitudes de mesure, traçabilité, ISO 17025, unités SI. Articles pratiques pour l'industrie et les laboratoires.",
   "partners": [
     {
@@ -61,5 +61,74 @@
     }
   ],
   "servicesUrl": "https://bmesure.fr/services/",
-  "googleSiteVerification": "KyIouz7zUVugk_rpRAUrknmXOhKZnFcY-AhOJX4nNYM"
+  "googleSiteVerification": "KyIouz7zUVugk_rpRAUrknmXOhKZnFcY-AhOJX4nNYM",
+  "rubriques": {
+    "Fondamentaux": {
+      "intro": "Les bases de la science de la mesure : définitions, vocabulaire, unités du Système international.",
+      "cta": {
+        "text": "Voir les instruments en boutique",
+        "url": "https://b-metrology.com/categorie-produit/instruments-de-mesure/"
+      }
+    },
+    "Instruments": {
+      "intro": "Pied à coulisse, micromètre, rugosimètre, cales étalon : comment choisir, utiliser et contrôler vos instruments de mesure dimensionnelle.",
+      "cta": {
+        "text": "Acheter en boutique B Metrology",
+        "url": "https://b-metrology.com/boutique/"
+      }
+    },
+    "Étalonnage": {
+      "intro": "Étalonnage, vérification, ajustage et périodicité : tout pour maîtriser votre parc d'instruments.",
+      "cta": {
+        "text": "Faire étalonner avec B MESURE",
+        "url": "https://bmesure.fr/services/"
+      }
+    },
+    "Incertitudes": {
+      "intro": "Comprendre, calculer et exprimer l'incertitude de mesure avec la méthode du GUM.",
+      "cta": {
+        "text": "Instruments à faible incertitude",
+        "url": "https://b-metrology.com/boutique/"
+      }
+    },
+    "Normes et accréditation": {
+      "intro": "ISO/IEC 17025, ISO 10012, COFRAC, traçabilité : les référentiels qui encadrent la métrologie.",
+      "cta": {
+        "text": "Étalonnage COFRAC avec B MESURE",
+        "url": "https://bmesure.fr/services/"
+      }
+    }
+  },
+  "instruments": [
+    {
+      "name": "Pied à coulisse",
+      "blurb": "L'outil de mesure polyvalent de l'atelier, au centième.",
+      "article": "pied-a-coulisse-guide-choix-et-verification",
+      "shop": "https://b-metrology.com/categorie-produit/instruments-de-mesure/pied-a-coulisse/"
+    },
+    {
+      "name": "Micromètre",
+      "blurb": "Mesurer au micron : principe, lecture, réglage.",
+      "article": "micrometre-guide-utilisation-et-etalonnage",
+      "shop": "https://b-metrology.com/categorie-produit/instruments-de-mesure/micrometre-exterieur/"
+    },
+    {
+      "name": "Rugosimètre",
+      "blurb": "Ra, Rz, cut-off : maîtriser l'état de surface.",
+      "article": "rugosimetre-ra-rz-comment-mesurer",
+      "shop": "https://b-metrology.com/categorie-produit/machines-et-appareils-de-mesure/rugosimetre/"
+    },
+    {
+      "name": "Cales étalon",
+      "blurb": "Grades K, 0, 1, 2 : la référence de longueur d'atelier.",
+      "article": "cales-etalon-grades-et-utilisation",
+      "shop": "https://b-metrology.com/categorie-produit/instruments-de-tracage-et-controles/cale-etalon/"
+    },
+    {
+      "name": "Comparateur",
+      "blurb": "Mesurer des écarts et des défauts de forme.",
+      "article": null,
+      "shop": "https://b-metrology.com/categorie-produit/instruments-de-mesure/comparateur/"
+    }
+  ]
 }
