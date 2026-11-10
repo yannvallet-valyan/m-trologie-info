@@ -8,14 +8,57 @@
   "description": "Métrologie Info explique la métrologie simplement : étalonnage, incertitudes de mesure, traçabilité, ISO 17025, unités SI. Articles pratiques pour l'industrie et les laboratoires.",
   "partners": [
     {
-      "name": "B-Métrologie",
-      "url": "https://www.b-metrologie.fr",
-      "text": "Étalonnage, vérification et conseil en métrologie pour l'industrie et les laboratoires."
+      "name": "B Metrology",
+      "url": "https://b-metrology.com/",
+      "text": "La boutique en ligne : plus de 20 000 références de pieds à coulisse, micromètres, comparateurs, cales étalon et rugosimètres (Mahr, Tesa, Insize, Accretech)."
     },
     {
-      "name": "BMesure",
-      "url": "https://www.bmesure.fr",
-      "text": "Instruments et solutions de mesure pour fiabiliser vos contrôles."
+      "name": "B MESURE",
+      "url": "https://bmesure.fr/",
+      "text": "Spécialiste en métrologie dimensionnelle : étalonnage COFRAC ou standard, réparation, calibres de contrôle sur plan."
     }
-  ]
+  ],
+  "categories": [
+    {
+      "name": "Pieds à coulisse",
+      "url": "https://b-metrology.com/categorie-produit/instruments-de-mesure/pied-a-coulisse/"
+    },
+    {
+      "name": "Micromètres",
+      "url": "https://b-metrology.com/categorie-produit/instruments-de-mesure/micrometre-exterieur/"
+    },
+    {
+      "name": "Comparateurs",
+      "url": "https://b-metrology.com/categorie-produit/instruments-de-mesure/comparateur/"
+    },
+    {
+      "name": "Rugosimètres",
+      "url": "https://b-metrology.com/categorie-produit/machines-et-appareils-de-mesure/rugosimetre/"
+    },
+    {
+      "name": "Cales étalon",
+      "url": "https://b-metrology.com/categorie-produit/instruments-de-tracage-et-controles/cale-etalon/"
+    },
+    {
+      "name": "Jauges de profondeur",
+      "url": "https://b-metrology.com/categorie-produit/instruments-de-mesure/jauge-de-profondeur/"
+    },
+    {
+      "name": "Alésomètres",
+      "url": "https://b-metrology.com/categorie-produit/instruments-de-mesure/alesometre-dinterieur/"
+    },
+    {
+      "name": "Vérificateurs universels",
+      "url": "https://b-metrology.com/categorie-produit/instruments-de-mesure/verificateur-universel/"
+    },
+    {
+      "name": "Colonnes de mesure",
+      "url": "https://b-metrology.com/categorie-produit/machines-et-appareils-de-mesure/colonne-de-mesure/"
+    },
+    {
+      "name": "Tampons filetés",
+      "url": "https://b-metrology.com/categorie-produit/calibres-de-controles/tampon-filete-calibres-de-controles/"
+    }
+  ],
+  "servicesUrl": "https://bmesure.fr/services/"
 }

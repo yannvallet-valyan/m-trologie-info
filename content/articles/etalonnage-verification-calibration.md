@@ -3,7 +3,7 @@ title: Étalonnage, vérification, calibration, ajustage : quelles différences 
 description: Ces termes sont souvent confondus. Définitions précises d'étalonnage, de vérification, de calibration et d'ajustage, avec un tableau comparatif et des exemples concrets.
 date: 2026-10-08
 category: Étalonnage
-related: periodicite-etalonnage-comment-la-definir,raccordement-metrologique-tracabilite,incertitude-de-mesure-guide
+related: pied-a-coulisse-guide-choix-et-verification,micrometre-guide-utilisation-et-etalonnage,periodicite-etalonnage-comment-la-definir
 ---
 
 ## L'essentiel en trois lignes
@@ -46,6 +46,12 @@ Bonne pratique : étalonner **avant** et **après** ajustage, afin de conserver 
 1. L'étalonnage à 180 °C révèle un écart de +1,2 °C, incertitude 0,3 °C.
 2. Le procédé exige ±2 °C. La **vérification** conclut à la conformité, car 1,2 + 0,3 < 2.
 3. Aucun ajustage nécessaire, mais l'écart est suivi à chaque étalonnage pour détecter une dérive.
+
+## Étalonner un pied à coulisse ou un micromètre
+
+Les instruments les plus étalonnés en atelier sont le [pied à coulisse](https://b-metrology.com/categorie-produit/instruments-de-mesure/pied-a-coulisse/) et le [micromètre](https://b-metrology.com/categorie-produit/instruments-de-mesure/micrometre-exterieur/). On les étalonne en les comparant à des [cales étalon](https://b-metrology.com/categorie-produit/instruments-de-tracage-et-controles/cale-etalon/) sur plusieurs points de leur étendue, et on documente l'écart et l'incertitude. Les détails sont dans nos guides [pied à coulisse](/blog/pied-a-coulisse-guide-choix-et-verification/) et [micromètre](/blog/micrometre-guide-utilisation-et-etalonnage/).
+
+Besoin d'un certificat COFRAC ou standard, d'un ajustage ou d'une réparation ? Voir les [services d'étalonnage de B MESURE](https://bmesure.fr/services/). Pour remplacer un instrument hors tolérance, la boutique [B Metrology](https://b-metrology.com/) propose tous les types de [pieds à coulisse](https://b-metrology.com/categorie-produit/instruments-de-mesure/pied-a-coulisse/), [micromètres](https://b-metrology.com/categorie-produit/instruments-de-mesure/micrometre-exterieur/) et [comparateurs](https://b-metrology.com/categorie-produit/instruments-de-mesure/comparateur/).
 
 ## Questions fréquentes
 

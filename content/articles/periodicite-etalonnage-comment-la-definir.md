@@ -3,7 +3,7 @@ title: Périodicité d'étalonnage : comment la définir et l'optimiser
 description: Comment fixer l'intervalle d'étalonnage d'un instrument : critères, méthode initiale, ajustement par l'historique de dérive, et exemple de plan d'étalonnage.
 date: 2026-11-05
 category: Étalonnage
-related: etalonnage-verification-calibration,raccordement-metrologique-tracabilite,norme-iso-17025-et-iso-10012
+related: pied-a-coulisse-guide-choix-et-verification,micrometre-guide-utilisation-et-etalonnage,cales-etalon-grades-et-utilisation
 ---
 
 ## Pas de règle universelle
@@ -32,9 +32,9 @@ Le guide ILAC-G24 / OIML D 10 décrit ces méthodes (par escalier, par graphique
 
 | Instrument | Criticité | Intervalle initial | Après 3 cycles stables |
 |---|---|---|---|
-| Pied à coulisse atelier | Moyenne | 12 mois | 24 mois possible |
+| [Pied à coulisse](https://b-metrology.com/categorie-produit/instruments-de-mesure/pied-a-coulisse/) atelier | Moyenne | 12 mois | 24 mois possible |
 | Sonde de température four | Forte | 6 mois | 12 mois |
-| Cale étalon de référence | Étalon | 24 mois | selon dérive |
+| [Cale étalon](https://b-metrology.com/categorie-produit/instruments-de-tracage-et-controles/cale-etalon/) de référence | Étalon | 24 mois | selon dérive |
 | Manomètre de contrôle sécurité | Forte | 12 mois | 12 mois (maintenu) |
 
 ## Que faire en cas d'écart hors tolérance ?
@@ -49,6 +49,10 @@ Quand un instrument revient non conforme, on ne se contente pas de l'ajuster :
 ## Vérifications intermédiaires
 
 Entre deux étalonnages, une **vérification intermédiaire** rapide avec une référence stable (cale étalon, bague, thermomètre de contrôle) détecte une dérive précoce. Elle permet d'allonger l'intervalle d'étalonnage en sécurité.
+
+## Quels instruments étalonner en priorité ?
+
+Commencez par les instruments les plus critiques et les plus utilisés : [pieds à coulisse](https://b-metrology.com/categorie-produit/instruments-de-mesure/pied-a-coulisse/), [micromètres](https://b-metrology.com/categorie-produit/instruments-de-mesure/micrometre-exterieur/), [comparateurs](https://b-metrology.com/categorie-produit/instruments-de-mesure/comparateur/) et [rugosimètres](https://b-metrology.com/categorie-produit/machines-et-appareils-de-mesure/rugosimetre/). Les [cales étalon](https://b-metrology.com/categorie-produit/instruments-de-tracage-et-controles/cale-etalon/) servant de référence interne méritent un suivi particulier, car elles étalonnent les autres. Pour planifier et réaliser ces étalonnages, voir les [services de B MESURE](https://bmesure.fr/services/).
 
 ## Questions fréquentes
 

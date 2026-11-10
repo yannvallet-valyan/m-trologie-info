@@ -117,3 +117,8 @@ th{background:var(--fg);color:var(--bg)}
 .ft .logo{color:var(--invfg)}
 .ft .eyebrow{color:var(--invfg)}
 .fcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:2rem}
+
+.chipt{margin-top:2.2rem;color:var(--invfg)}
+.chips{list-style:none;display:flex;flex-wrap:wrap;gap:.6rem;padding:0;margin:0}
+.chips a{display:inline-block;border:1px solid #555;padding:.4rem .9rem;color:var(--invfg);text-decoration:none;font-weight:600;font-size:.92rem}
+.chips a:hover{background:var(--red);border-color:var(--red);color:#fff}

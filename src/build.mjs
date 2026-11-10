@@ -128,7 +128,8 @@ ${body}
 <div class="fcols">
 <div><p class="logo"><span class="mono" aria-hidden="true">MI</span>${esc(cfg.name)}</p><p>${esc(cfg.tagline)}</p></div>
 <div><p class="eyebrow">Explorer</p><ul><li><a href="/">Présentation</a></li><li><a href="/blog/">Tous les articles</a></li><li><a href="/rss.xml">Flux RSS</a></li><li><a href="/sitemap.xml">Plan du site</a></li></ul></div>
-<div><p class="eyebrow">Nos sites</p><ul>${cfg.partners.map((p) => `<li><a href="${p.url}">${esc(p.name)} →</a></li>`).join('')}</ul></div>
+<div><p class="eyebrow">Nos sites</p><ul>${cfg.partners.map((p) => `<li><a href="${p.url}">${esc(p.name)} →</a></li>`).join('')}<li><a href="${cfg.servicesUrl}">Étalonnage COFRAC →</a></li></ul></div>
+<div><p class="eyebrow">Boutique</p><ul>${cfg.categories.slice(0, 5).map((c) => `<li><a href="${c.url}">${esc(c.name)}</a></li>`).join('')}</ul></div>
 </div>
 </div></footer>
 </body>
@@ -139,6 +140,8 @@ const partnersBox = (heading = 'Passez de la théorie à la pratique') => `<sect
 <p class="eyebrow">Nos services</p>
 <h2>${heading}</h2>
 <div class="cards two">${cfg.partners.map((p) => `<a class="pcard" href="${p.url}"><strong>${esc(p.name)}</strong><span>${esc(p.text)}</span><span class="more">Découvrir ${esc(p.name)} →</span></a>`).join('')}</div>
+<p class="eyebrow chipt">Catégories populaires</p>
+<ul class="chips">${cfg.categories.map((c) => `<li><a href="${c.url}">${esc(c.name)}</a></li>`).join('')}</ul>
 </div></section>`;
 
 const crumbs = (items) => ({ '@type': 'BreadcrumbList', itemListElement: items.map(([name, path], i) => ({ '@type': 'ListItem', position: i + 1, name, item: `${BASE}${path}` })) });
@@ -153,7 +156,7 @@ function homePage(arts) {
     ['À qui s\'adresse ce site ?', 'Aux responsables qualité, techniciens, ingénieurs, laboratoires et étudiants qui souhaitent comprendre et appliquer la métrologie simplement.'],
   ];
   const p0 = cfg.partners[0];
-  const topics = ['Étalonnage', 'Incertitudes', 'Traçabilité', 'ISO/IEC 17025', 'ISO 10012', 'Unités SI', 'COFRAC', 'Vérification', 'Périodicité'];
+  const topics = ['Pied à coulisse', 'Micromètre', 'Rugosimètre', 'Cales étalon', 'Étalonnage', 'Incertitudes', 'Traçabilité', 'ISO/IEC 17025', 'Unités SI', 'COFRAC'];
   const strip = topics.map((t) => `<span>${t}</span>`).join('');
   const body = `<section class="hero"><div class="w">
 <p class="badge"><i aria-hidden="true"></i>Guide gratuit en français · mis à jour 2026</p>
