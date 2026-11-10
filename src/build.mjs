@@ -132,7 +132,7 @@ ${jsonld.map(ld).join('\n')}
 ${bgLayer}
 <header class="hd"><div class="w bar">
 <a class="logo" href="/"><span class="mono" aria-hidden="true">MI</span>${esc(cfg.name)}</a>
-<nav aria-label="Navigation principale"><a href="/"${path === '/' ? ' aria-current="page"' : ''}>Présentation</a><a href="/blog/"${path.startsWith('/blog') ? ' aria-current="page"' : ''}>Articles</a><a class="btn sm" href="${p0.url}">${esc(p0.name)} →</a></nav>
+<nav aria-label="Navigation principale"><a href="/"${path === '/' ? ' aria-current="page"' : ''}>Accueil</a><a href="/blog/"${path.startsWith('/blog') || path.startsWith('/rubrique') ? ' aria-current="page"' : ''}>Articles</a><a href="/glossaire/"${path === '/glossaire/' ? ' aria-current="page"' : ''}>Glossaire</a><a href="/a-propos/"${path === '/a-propos/' ? ' aria-current="page"' : ''}>À propos</a><a class="btn sm" href="${p0.url}">${esc(p0.name)} →</a></nav>
 </div></header>
 <main id="main">
 ${body}
@@ -140,7 +140,7 @@ ${body}
 <footer class="ft"><div class="w">
 <div class="fcols">
 <div><p class="logo"><span class="mono" aria-hidden="true">MI</span>${esc(cfg.name)}</p><p>${esc(cfg.tagline)}</p></div>
-<div><p class="eyebrow">Explorer</p><ul><li><a href="/">Présentation</a></li><li><a href="/blog/">Tous les articles</a></li><li><a href="/rss.xml">Flux RSS</a></li><li><a href="/sitemap.xml">Plan du site</a></li></ul></div>
+<div><p class="eyebrow">Explorer</p><ul><li><a href="/">Présentation</a></li><li><a href="/blog/">Tous les articles</a></li><li><a href="/glossaire/">Glossaire</a></li><li><a href="/a-propos/">À propos</a></li><li><a href="/rss.xml">Flux RSS</a></li><li><a href="/sitemap.xml">Plan du site</a></li></ul></div>
 <div><p class="eyebrow">Nos sites</p><ul>${cfg.partners.map((p) => `<li><a href="${p.url}">${esc(p.name)} →</a></li>`).join('')}<li><a href="${cfg.servicesUrl}">Étalonnage COFRAC →</a></li></ul></div>
 <div><p class="eyebrow">Boutique</p><ul>${cfg.categories.slice(0, 5).map((c) => `<li><a href="${c.url}">${esc(c.name)}</a></li>`).join('')}</ul></div>
 </div>
@@ -162,45 +162,65 @@ const crumbs = (items) => ({ '@type': 'BreadcrumbList', itemListElement: items.m
 const articleItem = (a) => `<li><a class="ac" href="/blog/${a.slug}/"><span class="tag">${esc(a.category)}</span><strong>${esc(a.title)}</strong><span class="desc">${esc(a.description)}</span><span class="meta">${dateFr(a.date)} · ${a.minutes} min</span><span class="more">Lire l'article →</span></a></li>`;
 
 // ---------- Pages ----------
+const glossary = JSON.parse(await readFile('content/glossaire.json', 'utf8'));
+const rubSlug = (name) => slugify(name);
+const rubPath = (name) => `/rubrique/${rubSlug(name)}/`;
+
 function homePage(arts) {
   const faq = [
     ['Qu\'est-ce que la métrologie ?', 'La métrologie est la science de la mesure et de ses applications. Elle garantit que les mesures sont justes, comparables et reconnues, quel que soit le lieu ou l\'instrument.'],
     ['À quoi sert un étalonnage ?', 'Un étalonnage compare un instrument à un étalon raccordé au SI et établit son écart avec une incertitude associée. Il permet de savoir si l\'instrument est apte à l\'usage prévu.'],
     ['À qui s\'adresse ce site ?', 'Aux responsables qualité, techniciens, ingénieurs, laboratoires et étudiants qui souhaitent comprendre et appliquer la métrologie simplement.'],
+    ['Qui édite Métrologie Info ?', 'Métrologie Info est édité par l\'équipe de B MESURE, spécialiste en métrologie dimensionnelle, qui exploite aussi la boutique B Metrology.'],
   ];
-  const p0 = cfg.partners[0];
+  const p0 = cfg.partners[0], p1 = cfg.partners[1];
   const topics = ['Pied à coulisse', 'Micromètre', 'Rugosimètre', 'Cales étalon', 'Étalonnage', 'Incertitudes', 'Traçabilité', 'ISO/IEC 17025', 'Unités SI', 'COFRAC'];
   const strip = topics.map((t) => `<span>${t}</span>`).join('');
+  const feat = arts.find((a) => a.featured === 'true') || arts[0];
+  const side = arts.filter((a) => a !== feat).slice(0, 3);
+  const rubs = Object.keys(cfg.rubriques);
+  const cnt = (r) => arts.filter((a) => a.category === r).length;
+  const bySlug = (s) => arts.find((a) => a.slug === s);
   const body = `<section class="hero"><div class="w">
-<p class="badge"><i aria-hidden="true"></i>Guide gratuit en français · mis à jour 2026</p>
-<h1>La métrologie,<br><em>expliquée</em> simplement.</h1>
-<p class="lead">${esc(cfg.name)} décrypte la science de la mesure : <strong>étalonnage</strong>, <strong>incertitudes</strong>, <strong>traçabilité</strong>, <strong>normes ISO</strong> et <strong>unités SI</strong>. Des articles clairs, pensés pour l'industrie et les laboratoires.</p>
-<p class="actions"><a class="btn" href="/blog/">Lire les articles →</a><a class="btn ghost" href="${p0.url}">Découvrir ${esc(p0.name)}</a></p>
-<ul class="stats">
-<li><strong>7</strong><span>unités de base du SI</span></li>
-<li><strong>k = 2</strong><span>≈ 95 % de confiance</span></li>
-<li><strong>${arts.length}</strong><span>guides pratiques en ligne</span></li>
-</ul>
+<p class="badge"><i aria-hidden="true"></i>Le magazine francophone de la mesure</p>
+<h1>La référence de la <em>métrologie</em>.</h1>
+<p class="lead">Étalonnage, incertitudes, traçabilité, normes ISO, instruments de mesure : des guides rigoureux et lisibles, rédigés par des spécialistes de la métrologie dimensionnelle.</p>
+<p class="actions"><a class="btn" href="/blog/">Explorer les guides →</a><a class="btn ghost" href="/glossaire/">Parcourir le glossaire</a></p>
 </div></section>
 <div class="strip" aria-hidden="true"><div class="track">${strip}${strip}</div></div>
 <section class="sec"><div class="w">
-<p class="eyebrow">À propos</p>
-<h2>Une science qui garantit que <em>1 mm</em> reste 1 mm partout.</h2>
-<div class="two-col">
-<div><p>La <strong>métrologie</strong> est la science de la mesure et de ses applications. Elle assure que le résultat d'une mesure est <strong>fiable, comparable et traçable</strong> : un mètre mesuré à Lyon doit être le même mètre qu'à Tokyo.</p>
-<p>Sans métrologie, pas de pièces interchangeables, pas de dosage de médicaments fiable, pas d'échanges commerciaux équitables.</p></div>
-<ul class="cards three">
-<li class="card"><strong>Scientifique</strong><span>Définir les unités et les étalons primaires.</span></li>
-<li class="card"><strong>Industrielle</strong><span>Maîtriser les instruments en production et en contrôle qualité.</span></li>
-<li class="card"><strong>Légale</strong><span>Encadrer balances, compteurs et pompes à carburant.</span></li>
-</ul>
+<p class="eyebrow">À la une</p>
+<div class="front">
+<a class="lead-card" href="/blog/${feat.slug}/"><span class="tag">${esc(feat.category)}</span><strong>${esc(feat.title)}</strong><span class="desc">${esc(feat.description)}</span><span class="meta">${dateFr(feat.date)} · ${feat.minutes} min de lecture</span><span class="more">Lire le dossier →</span></a>
+<ul class="side">${side.map((a) => `<li><a href="/blog/${a.slug}/"><span class="tag">${esc(a.category)}</span><strong>${esc(a.title)}</strong><span class="meta">${dateFr(a.date)} · ${a.minutes} min</span></a></li>`).join('')}</ul>
 </div>
 </div></section>
 <section class="sec soft"><div class="w">
-<p class="eyebrow">Articles</p>
-<h2>Derniers <em>guides</em> publiés</h2>
-<ul class="grid">${arts.slice(0, 6).map(articleItem).join('')}</ul>
-<p class="actions"><a class="btn ghost" href="/blog/">Voir tous les articles →</a></p>
+<p class="eyebrow">Rubriques</p>
+<h2>Explorez la métrologie par <em>thème</em></h2>
+<ul class="hubs">${rubs.map((r) => `<li><a class="hub" href="${rubPath(r)}"><strong>${esc(r)}</strong><span class="desc">${esc(cfg.rubriques[r].intro)}</span><span class="more">${cnt(r)} guide${cnt(r) > 1 ? 's' : ''} →</span></a></li>`).join('')}</ul>
+</div></section>
+<section class="sec"><div class="w">
+<p class="eyebrow">Instruments</p>
+<h2>Bien choisir et bien utiliser vos <em>instruments</em></h2>
+<ul class="inst">${cfg.instruments.map((i) => { const a = i.article && bySlug(i.article); return `<li class="icard"><strong>${esc(i.name)}</strong><span>${esc(i.blurb)}</span><span class="links">${a ? `<a href="/blog/${a.slug}/">Lire le guide</a>` : ''}<a class="shop" href="${i.shop}">Voir en boutique →</a></span></li>`; }).join('')}</ul>
+</div></section>
+<section class="sec soft"><div class="w">
+<p class="eyebrow">Glossaire</p>
+<h2>Le vocabulaire de la métrologie, <em>expliqué</em></h2>
+<p class="lead">${glossary.length} définitions claires, inspirées du VIM : étalonnage, incertitude, traçabilité, résolution, EMT…</p>
+<ul class="chips light">${glossary.slice(0, 14).map((g) => `<li><a href="/glossaire/#${slugify(g.term)}">${esc(g.term)}</a></li>`).join('')}<li><a href="/glossaire/"><strong>Tout le glossaire →</strong></a></li></ul>
+</div></section>
+<section class="sec"><div class="w">
+<p class="eyebrow">Pourquoi nous faire confiance</p>
+<h2>Une expertise <em>de terrain</em></h2>
+<ul class="trust">
+<li><strong>25 ans+</strong><span>d'expérience en métrologie dimensionnelle chez <a href="${p1.url}">B MESURE</a></span></li>
+<li><strong>20 000+</strong><span>références d'instruments sur <a href="${p0.url}">B Metrology</a> (Mahr, Tesa, Insize, Accretech)</span></li>
+<li><strong>COFRAC</strong><span>étalonnages accrédités ou standard, réparation et certificats</span></li>
+<li><strong>ISO · VIM · GUM</strong><span>nos guides s'appuient sur les normes et référentiels internationaux</span></li>
+</ul>
+<p><a href="/a-propos/">Notre démarche éditoriale →</a></p>
 </div></section>
 ${partnersBox()}
 <section class="sec"><div class="w narrow">
@@ -212,12 +232,90 @@ ${faq.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}
     '@context': 'https://schema.org',
     '@graph': [
       { '@type': 'WebSite', '@id': `${BASE}/#site`, url: `${BASE}/`, name: cfg.name, description: cfg.description, inLanguage: cfg.lang, publisher: { '@id': `${BASE}/#org` } },
-      orgLd,
+      { ...orgLd, description: cfg.description, knowsAbout: ['Métrologie', 'Étalonnage', 'Incertitude de mesure', 'Instruments de mesure dimensionnelle', 'ISO/IEC 17025'] },
       { '@type': 'WebPage', '@id': `${BASE}/#page`, url: `${BASE}/`, name: cfg.name, isPartOf: { '@id': `${BASE}/#site` }, about: { '@type': 'Thing', name: 'Métrologie' }, inLanguage: cfg.lang },
       { '@type': 'FAQPage', mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
     ],
   }];
-  return layout({ path: '/', title: 'Métrologie : étalonnage, incertitudes, normes – guide complet', description: cfg.description, body, jsonld });
+  return layout({ path: '/', title: 'Métrologie : étalonnage, incertitudes, instruments – le guide de référence', description: cfg.description, body, jsonld });
+}
+
+function glossaryPage() {
+  const list = [...glossary].sort((a, b) => a.term.localeCompare(b.term, 'fr'));
+  const letters = [...new Set(list.map((g) => g.term[0].normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase()))];
+  const L = (g) => g.term[0].normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase();
+  const body = `<section class="hero small"><div class="w narrow">
+<nav class="bc" aria-label="Fil d'Ariane"><a href="/">Accueil</a> / <span>Glossaire</span></nav>
+<p class="eyebrow">Glossaire</p>
+<h1>Glossaire de la <em>métrologie</em>.</h1>
+<p class="lead">${list.length} termes essentiels, définis simplement et liés aux guides détaillés. Les définitions s'inspirent du Vocabulaire international de métrologie (VIM).</p>
+<ul class="chips light az">${letters.map((l) => `<li><a href="#lettre-${l}">${l}</a></li>`).join('')}</ul>
+</div></section>
+<section class="sec"><div class="w narrow"><dl class="gl">
+${letters.map((l) => `<h2 id="lettre-${l}" class="cat">${l}</h2>${list.filter((g) => L(g) === l).map((g) => `<div class="term" id="${slugify(g.term)}"><dt>${esc(g.term)}</dt><dd>${esc(g.def)}${g.article ? ` <a href="/blog/${g.article}/">Lire le guide →</a>` : ''}${g.shop ? ` <a class="shop" href="${g.shop}">${g.shop.includes('bmesure') ? 'Voir le service' : 'Voir en boutique'} →</a>` : ''}</dd></div>`).join('')}`).join('')}
+</dl></div></section>
+${partnersBox()}`;
+  return layout({
+    path: '/glossaire/', title: 'Glossaire de la métrologie : définitions', description: `Glossaire de la métrologie : ${list.length} définitions (étalonnage, incertitude, traçabilité, EMT, résolution, Ra, Rz…) avec liens vers les guides détaillés.`, body,
+    jsonld: [{ '@context': 'https://schema.org', '@graph': [
+      { '@type': 'DefinedTermSet', '@id': `${BASE}/glossaire/#set`, name: 'Glossaire de la métrologie', url: `${BASE}/glossaire/`, inLanguage: cfg.lang, hasDefinedTerm: list.map((g) => ({ '@type': 'DefinedTerm', name: g.term, description: g.def, url: `${BASE}/glossaire/#${slugify(g.term)}`, inDefinedTermSet: { '@id': `${BASE}/glossaire/#set` } })) },
+      crumbs([['Accueil', '/'], ['Glossaire', '/glossaire/']]),
+    ] }],
+  });
+}
+
+function aboutPage() {
+  const [p0, p1] = cfg.partners;
+  const body = `<section class="hero small"><div class="w narrow">
+<nav class="bc" aria-label="Fil d'Ariane"><a href="/">Accueil</a> / <span>À propos</span></nav>
+<p class="eyebrow">À propos</p>
+<h1>Notre démarche <em>éditoriale</em>.</h1>
+<p class="lead">${esc(cfg.name)} a une ambition : devenir le site de référence francophone pour comprendre et appliquer la métrologie.</p>
+</div></section>
+<section class="sec"><div class="w narrow prose">
+<h2>Qui sommes-nous ?</h2>
+<p>${esc(cfg.name)} est édité par l'équipe de <a href="${p1.url}">${esc(p1.name)}</a>, spécialiste en métrologie dimensionnelle depuis plus de 25 ans, installé à Saint-Sorlin-en-Valloire (Drôme). Nous exploitons aussi la boutique en ligne <a href="${p0.url}">${esc(p0.name)}</a>, qui distribue des instruments de mesure Mahr, Tesa, Insize et Accretech.</p>
+<h2>Transparence</h2>
+<p>Ce site est édité par des acteurs de la métrologie. Nous mentionnons nos services et notre boutique lorsque ces liens sont utiles au lecteur : <a href="${p0.url}">${esc(p0.name)}</a> pour acheter un instrument, <a href="${cfg.servicesUrl}">${esc(p1.name)}</a> pour l'étalonnage ou la réparation. Les guides eux-mêmes restent gratuits et neutres sur les marques.</p>
+<h2>Nos sources</h2>
+<ul>
+<li>Vocabulaire international de métrologie, VIM (JCGM 200)</li>
+<li>Guide pour l'expression de l'incertitude de mesure, GUM (JCGM 100)</li>
+<li>ISO/IEC 17025 et ISO 10012</li>
+<li>Normes d'instruments : ISO 13385-1 (pied à coulisse), ISO 3650 (cales étalon), série ISO 21920 (rugosité)</li>
+<li>Brochure du Bureau international des poids et mesures sur le SI</li>
+</ul>
+<h2>Mises à jour et corrections</h2>
+<p>Chaque article affiche sa date de publication et, le cas échéant, sa date de mise à jour. Si vous repérez une erreur ou une imprécision, contactez-nous : nous la corrigeons rapidement.</p>
+<h2>Nous contacter</h2>
+<p>Pour une question technique, un devis d'étalonnage ou un conseil de choix d'instrument : <a href="https://b-metrology.com/contact-us/">formulaire de contact B Metrology</a> ou <a href="${p1.url}">${esc(p1.name)}</a>.</p>
+</div></section>
+${partnersBox()}`;
+  return layout({
+    path: '/a-propos/', title: 'À propos et démarche éditoriale', description: `Qui édite ${cfg.name} ? Notre équipe, nos sources (VIM, GUM, ISO), notre politique de mises à jour et notre transparence sur les liens vers B Metrology et B MESURE.`, body,
+    jsonld: [{ '@context': 'https://schema.org', '@graph': [{ '@type': 'AboutPage', name: 'À propos', url: `${BASE}/a-propos/`, inLanguage: cfg.lang, isPartOf: { '@id': `${BASE}/#site` } }, orgLd, crumbs([['Accueil', '/'], ['À propos', '/a-propos/']])] }],
+  });
+}
+
+function rubriquePage(name, arts) {
+  const r = cfg.rubriques[name], list = arts.filter((a) => a.category === name);
+  const body = `<section class="hero small"><div class="w">
+<nav class="bc" aria-label="Fil d'Ariane"><a href="/">Accueil</a> / <a href="/blog/">Articles</a> / <span>${esc(name)}</span></nav>
+<p class="eyebrow">Rubrique</p>
+<h1>${esc(name)}</h1>
+<p class="lead">${esc(r.intro)}</p>
+<p class="actions"><a class="btn" href="${r.cta.url}">${esc(r.cta.text)} →</a></p>
+</div></section>
+<section class="sec"><div class="w"><ul class="grid">${list.map(articleItem).join('')}</ul></div></section>
+${partnersBox()}`;
+  return layout({
+    path: rubPath(name), title: `${name} : guides et articles`, description: `${r.intro} ${list.length} guide${list.length > 1 ? 's' : ''} pratique${list.length > 1 ? 's' : ''} sur ${cfg.name}.`, body,
+    jsonld: [{ '@context': 'https://schema.org', '@graph': [
+      { '@type': 'CollectionPage', name, url: `${BASE}${rubPath(name)}`, inLanguage: cfg.lang, isPartOf: { '@id': `${BASE}/#site` } },
+      { '@type': 'ItemList', itemListElement: list.map((a, i) => ({ '@type': 'ListItem', position: i + 1, url: `${BASE}/blog/${a.slug}/`, name: a.title })) },
+      crumbs([['Accueil', '/'], ['Articles', '/blog/'], [name, rubPath(name)]]),
+    ] }],
+  });
 }
 
 function blogIndex(arts) {
@@ -245,7 +343,7 @@ function articlePage(a, all) {
   const url = `${BASE}/blog/${a.slug}/`;
   const rel = (a.related.length ? a.related.map((s) => all.find((x) => x.slug === s)).filter(Boolean) : all.filter((x) => x.slug !== a.slug && x.category === a.category)).filter((x) => x.slug !== a.slug).slice(0, 3);
   const body = `<div class="w narrow">
-<nav class="bc" aria-label="Fil d'Ariane"><a href="/">Accueil</a> / <a href="/blog/">Articles</a> / <span>${esc(a.category)}</span></nav>
+<nav class="bc" aria-label="Fil d'Ariane"><a href="/">Accueil</a> / <a href="/blog/">Articles</a> / <a href="${rubPath(a.category)}">${esc(a.category)}</a></nav>
 <article>
 <header class="ah">
 <span class="tag">${esc(a.category)}</span>
@@ -289,6 +387,8 @@ Site francophone sur la métrologie, édité en lien avec ${cfg.partners.map((p)
 ## Pages principales
 - [Présentation](${BASE}/): présentation du site et de la métrologie
 - [Articles](${BASE}/blog/): liste de tous les articles
+- [Glossaire](${BASE}/glossaire/): définitions des termes de métrologie
+- [À propos](${BASE}/a-propos/): démarche éditoriale et sources
 
 ## Articles
 ${arts.map((a) => `- [${a.title}](${BASE}/blog/${a.slug}/): ${a.description}`).join('\n')}
@@ -345,9 +445,12 @@ for (const a of arts) {
   await put(`blog/${a.slug}/index.html`, articlePage(a, arts));
   await put(`blog/${a.slug}/index.md`, `# ${a.title}\n\n${a.body}\n`);
 }
+await put('glossaire/index.html', glossaryPage());
+await put('a-propos/index.html', aboutPage());
+for (const r of Object.keys(cfg.rubriques)) await put(`rubrique/${rubSlug(r)}/index.html`, rubriquePage(r, arts));
 await put('404.html', notFound());
 const last = arts[0]?.updated || arts[0]?.date || new Date().toISOString().slice(0, 10);
-await put('sitemap.xml', sitemap([['/', last], ['/blog/', last], ...arts.map((a) => [`/blog/${a.slug}/`, a.updated || a.date])]));
+await put('sitemap.xml', sitemap([['/', last], ['/blog/', last], ['/glossaire/', last], ['/a-propos/', last], ...Object.keys(cfg.rubriques).map((r) => [rubPath(r), last]), ...arts.map((a) => [`/blog/${a.slug}/`, a.updated || a.date])]));
 await put('rss.xml', rss(arts));
 await put('robots.txt', robots);
 await put('llms.txt', llms(arts));

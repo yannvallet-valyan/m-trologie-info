@@ -1,0 +1,230 @@
+[
+ {
+  "term": "Étalonnage",
+  "def": "Opération qui établit, dans des conditions spécifiées, une relation entre les valeurs indiquées par un instrument et celles d'un étalon, avec leurs incertitudes. Elle ne modifie pas l'instrument.",
+  "article": "etalonnage-verification-calibration",
+  "shop": null
+ },
+ {
+  "term": "Vérification",
+  "def": "Preuve objective qu'un instrument satisfait à des exigences spécifiées (tolérance, erreur maximale tolérée). Elle aboutit à une décision : conforme ou non conforme.",
+  "article": "etalonnage-verification-calibration",
+  "shop": null
+ },
+ {
+  "term": "Ajustage",
+  "def": "Opération qui modifie un instrument pour que ses indications se rapprochent d'une valeur de référence. Il doit être suivi d'un nouvel étalonnage.",
+  "article": "etalonnage-verification-calibration",
+  "shop": null
+ },
+ {
+  "term": "Étalon",
+  "def": "Mesure matérialisée, instrument de mesure ou matériau de référence destiné à définir, conserver ou reproduire une unité ou une valeur de grandeur.",
+  "article": null,
+  "shop": null
+ },
+ {
+  "term": "Cale étalon",
+  "def": "Bloc d'acier, de carbure ou de céramique dont deux faces planes et parallèles définissent une longueur précise. Les grades K, 0, 1 et 2 (ISO 3650) indiquent la tolérance.",
+  "article": "cales-etalon-grades-et-utilisation",
+  "shop": "https://b-metrology.com/categorie-produit/instruments-de-tracage-et-controles/cale-etalon/"
+ },
+ {
+  "term": "Traçabilité métrologique",
+  "def": "Propriété d'un résultat de mesure reliée à une référence par une chaîne ininterrompue et documentée d'étalonnages, chacun contribuant à l'incertitude.",
+  "article": "raccordement-metrologique-tracabilite",
+  "shop": null
+ },
+ {
+  "term": "Raccordement",
+  "def": "Action de relier un instrument ou un étalon à des étalons de niveau supérieur jusqu'aux étalons nationaux, puis aux unités du SI.",
+  "article": "raccordement-metrologique-tracabilite",
+  "shop": null
+ },
+ {
+  "term": "Incertitude de mesure",
+  "def": "Paramètre qui caractérise la dispersion des valeurs raisonnablement attribuables au mesurande. Un résultat de mesure sans incertitude est incomplet.",
+  "article": "incertitude-de-mesure-guide",
+  "shop": null
+ },
+ {
+  "term": "Incertitude élargie",
+  "def": "Produit de l'incertitude-type composée par un facteur d'élargissement k. Avec k = 2, le niveau de confiance est d'environ 95 % pour une loi normale.",
+  "article": "incertitude-de-mesure-guide",
+  "shop": null
+ },
+ {
+  "term": "Mesurande",
+  "def": "Grandeur que l'on veut mesurer, par exemple le diamètre d'un arbre à 20 °C.",
+  "article": null,
+  "shop": null
+ },
+ {
+  "term": "Erreur de mesure",
+  "def": "Différence entre la valeur mesurée et une valeur de référence. À ne pas confondre avec l'incertitude.",
+  "article": "incertitude-de-mesure-guide",
+  "shop": null
+ },
+ {
+  "term": "Erreur maximale tolérée (EMT)",
+  "def": "Valeur extrême de l'erreur de mesure permise par les spécifications ou la réglementation pour un instrument donné.",
+  "article": null,
+  "shop": null
+ },
+ {
+  "term": "Résolution",
+  "def": "Plus petite variation de la grandeur mesurée qui provoque une variation perceptible de l'indication. Un pied à coulisse numérique a souvent une résolution de 0,01 mm.",
+  "article": "pied-a-coulisse-guide-choix-et-verification",
+  "shop": null
+ },
+ {
+  "term": "Répétabilité",
+  "def": "Fidélité de mesure sous des conditions identiques : même opérateur, même instrument, même lieu, sur une courte durée.",
+  "article": "incertitude-de-mesure-guide",
+  "shop": null
+ },
+ {
+  "term": "Reproductibilité",
+  "def": "Fidélité de mesure sous des conditions différentes : opérateurs, lieux ou instruments différents.",
+  "article": null,
+  "shop": null
+ },
+ {
+  "term": "Justesse",
+  "def": "Étroitesse de l'accord entre la moyenne d'un grand nombre de mesures et une valeur de référence.",
+  "article": null,
+  "shop": null
+ },
+ {
+  "term": "Dérive",
+  "def": "Variation lente et continue de l'indication d'un instrument dans le temps. Le suivi des dérives permet d'ajuster la périodicité d'étalonnage.",
+  "article": "periodicite-etalonnage-comment-la-definir",
+  "shop": null
+ },
+ {
+  "term": "Périodicité d'étalonnage",
+  "def": "Intervalle de temps entre deux étalonnages d'un instrument, fixé selon sa criticité, sa stabilité et ses conditions d'usage.",
+  "article": "periodicite-etalonnage-comment-la-definir",
+  "shop": null
+ },
+ {
+  "term": "Confirmation métrologique",
+  "def": "Ensemble d'opérations nécessaires pour s'assurer qu'un équipement de mesure répond aux exigences de l'usage prévu (ISO 10012).",
+  "article": "norme-iso-17025-et-iso-10012",
+  "shop": null
+ },
+ {
+  "term": "Bande de garde",
+  "def": "Marge retirée des limites de tolérance, calculée à partir de l'incertitude, pour décider de la conformité avec un risque maîtrisé.",
+  "article": "incertitude-de-mesure-guide",
+  "shop": null
+ },
+ {
+  "term": "COFRAC",
+  "def": "Comité français d'accréditation, instance nationale qui accrédite les laboratoires d'étalonnage et d'essais selon l'ISO/IEC 17025.",
+  "article": "norme-iso-17025-et-iso-10012",
+  "shop": "https://bmesure.fr/services/"
+ },
+ {
+  "term": "ISO/IEC 17025",
+  "def": "Norme internationale sur la compétence des laboratoires d'étalonnage et d'essais, dont l'édition en vigueur date de 2017.",
+  "article": "norme-iso-17025-et-iso-10012",
+  "shop": null
+ },
+ {
+  "term": "ISO 10012",
+  "def": "Norme de lignes directrices pour les systèmes de management des mesures, utile pour maîtriser les équipements de mesure d'une organisation.",
+  "article": "norme-iso-17025-et-iso-10012",
+  "shop": null
+ },
+ {
+  "term": "BIPM",
+  "def": "Bureau international des poids et mesures, installé à Sèvres. Il coordonne le Système international d'unités.",
+  "article": "unites-si-et-redefinition-2019",
+  "shop": null
+ },
+ {
+  "term": "LNE",
+  "def": "Laboratoire national de métrologie et d'essais, institut national de métrologie en France.",
+  "article": "raccordement-metrologique-tracabilite",
+  "shop": null
+ },
+ {
+  "term": "VIM",
+  "def": "Vocabulaire international de métrologie (JCGM 200), référence mondiale de la terminologie du domaine.",
+  "article": null,
+  "shop": null
+ },
+ {
+  "term": "GUM",
+  "def": "Guide pour l'expression de l'incertitude de mesure (JCGM 100), méthode de référence pour évaluer les incertitudes.",
+  "article": "incertitude-de-mesure-guide",
+  "shop": null
+ },
+ {
+  "term": "Système international d'unités (SI)",
+  "def": "Système de sept unités de base (seconde, mètre, kilogramme, ampère, kelvin, mole, candela), défini depuis 2019 par sept constantes fondamentales.",
+  "article": "unites-si-et-redefinition-2019",
+  "shop": null
+ },
+ {
+  "term": "Pied à coulisse",
+  "def": "Instrument de mesure dimensionnelle polyvalent pour les cotes extérieures, intérieures et les profondeurs. Il existe en versions à vernier, à cadran et numérique.",
+  "article": "pied-a-coulisse-guide-choix-et-verification",
+  "shop": "https://b-metrology.com/categorie-produit/instruments-de-mesure/pied-a-coulisse/"
+ },
+ {
+  "term": "Micromètre",
+  "def": "Instrument à vis micrométrique qui mesure des dimensions extérieures avec une résolution de 0,01 mm, ou 0,001 mm avec vernier ou affichage numérique.",
+  "article": "micrometre-guide-utilisation-et-etalonnage",
+  "shop": "https://b-metrology.com/categorie-produit/instruments-de-mesure/micrometre-exterieur/"
+ },
+ {
+  "term": "Comparateur",
+  "def": "Instrument à palpeur, à cadran ou numérique, qui mesure des écarts par rapport à une cote de référence et des défauts de forme.",
+  "article": null,
+  "shop": "https://b-metrology.com/categorie-produit/instruments-de-mesure/comparateur/"
+ },
+ {
+  "term": "Alésomètre",
+  "def": "Instrument de mesure des diamètres intérieurs d'alésages, à touches ou à comparateur.",
+  "article": "micrometre-guide-utilisation-et-etalonnage",
+  "shop": "https://b-metrology.com/categorie-produit/instruments-de-mesure/alesometre-dinterieur/"
+ },
+ {
+  "term": "Jauge de profondeur",
+  "def": "Instrument de mesure des profondeurs de rainures, de lamages et d'épaulements.",
+  "article": null,
+  "shop": "https://b-metrology.com/categorie-produit/instruments-de-mesure/jauge-de-profondeur/"
+ },
+ {
+  "term": "Tampon fileté",
+  "def": "Calibre de contrôle « entre / n'entre pas » qui permet de contrôler un taraudage.",
+  "article": null,
+  "shop": "https://b-metrology.com/categorie-produit/calibres-de-controles/tampon-filete-calibres-de-controles/"
+ },
+ {
+  "term": "Rugosimètre",
+  "def": "Appareil à palpeur diamant qui mesure l'état de surface d'une pièce et calcule des paramètres comme Ra et Rz.",
+  "article": "rugosimetre-ra-rz-comment-mesurer",
+  "shop": "https://b-metrology.com/categorie-produit/machines-et-appareils-de-mesure/rugosimetre/"
+ },
+ {
+  "term": "Ra",
+  "def": "Moyenne arithmétique des écarts du profil de rugosité, exprimée en micromètres. C'est le paramètre de rugosité le plus utilisé.",
+  "article": "rugosimetre-ra-rz-comment-mesurer",
+  "shop": null
+ },
+ {
+  "term": "Rz",
+  "def": "Hauteur maximale du profil de rugosité, moyennée sur plusieurs tronçons. Plus sensible aux pics et aux creux que Ra.",
+  "article": "rugosimetre-ra-rz-comment-mesurer",
+  "shop": null
+ },
+ {
+  "term": "Longueur de base (cut-off)",
+  "def": "Longueur sur laquelle le profil est évalué et filtré pour séparer rugosité et ondulation. Valeurs courantes : 0,08 ; 0,25 ; 0,8 ; 2,5 et 8 mm.",
+  "article": "rugosimetre-ra-rz-comment-mesurer",
+  "shop": null
+ }
+]
