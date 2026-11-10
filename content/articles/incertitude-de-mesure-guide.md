@@ -3,7 +3,7 @@ title: Incertitude de mesure : comprendre et calculer (GUM, type A et B)
 description: Guide pratique de l'incertitude de mesure : définition, incertitude-type de type A et B, composition, incertitude élargie et facteur d'élargissement, avec un exemple chiffré.
 date: 2026-10-15
 category: Incertitudes
-related: etalonnage-verification-calibration,raccordement-metrologique-tracabilite,norme-iso-17025-et-iso-10012
+related: pied-a-coulisse-guide-choix-et-verification,micrometre-guide-utilisation-et-etalonnage,etalonnage-verification-calibration
 ---
 
 ## Pourquoi parler d'incertitude
@@ -44,7 +44,7 @@ L'incertitude élargie vaut `U = k × u_c`. Avec **k = 2**, on obtient environ *
 
 ## Exemple chiffré
 
-Mesure d'une longueur avec un pied à coulisse de résolution 0,01 mm.
+Mesure d'une longueur avec un [pied à coulisse](https://b-metrology.com/categorie-produit/instruments-de-mesure/pied-a-coulisse/) de résolution 0,01 mm (voir notre [guide du pied à coulisse](/blog/pied-a-coulisse-guide-choix-et-verification/)).
 
 | Composante | Valeur | Incertitude-type |
 |---|---|---|
@@ -59,6 +59,10 @@ Le résultat s'exprime ainsi : **L = 25,03 mm ± 0,022 mm (k = 2)**.
 ## Incertitude et décision de conformité
 
 Si une pièce doit mesurer 25,00 ± 0,05 mm et que le résultat est 25,03 ± 0,022 mm, la pièce est conforme avec une marge. Mais près de la limite, l'incertitude peut empêcher de conclure. Des règles de décision (ILAC-G8, JCGM 106) définissent la marche à suivre, par exemple avec une **bande de garde**.
+
+## Réduire l'incertitude avec le bon instrument
+
+La composante de résolution et celle d'étalonnage dépendent directement de l'instrument. Pour une tolérance serrée, passer d'un [pied à coulisse](https://b-metrology.com/categorie-produit/instruments-de-mesure/pied-a-coulisse/) à un [micromètre](https://b-metrology.com/categorie-produit/instruments-de-mesure/micrometre-exterieur/) (résolution 0,001 mm) réduit fortement l'incertitude, comme l'explique notre [guide du micromètre](/blog/micrometre-guide-utilisation-et-etalonnage/). Un instrument étalonné avec une faible incertitude, via un [étalonnage COFRAC](https://bmesure.fr/services/), améliore aussi le bilan.
 
 ## Questions fréquentes
 

@@ -3,7 +3,7 @@ title: Qu'est-ce que la métrologie ? Définition, domaines et enjeux
 description: La métrologie est la science de la mesure. Définition, trois grands domaines (scientifique, industrielle, légale), vocabulaire essentiel et raisons de l'appliquer en entreprise.
 date: 2026-10-01
 category: Fondamentaux
-related: etalonnage-verification-calibration,incertitude-de-mesure-guide,unites-si-et-redefinition-2019
+related: pied-a-coulisse-guide-choix-et-verification,micrometre-guide-utilisation-et-etalonnage,etalonnage-verification-calibration
 ---
 
 ## Définition de la métrologie
@@ -47,6 +47,18 @@ Un service métrologie, ou un responsable qualité, gère généralement :
 3. un **plan d'étalonnage** avec une [périodicité adaptée](/blog/periodicite-etalonnage-comment-la-definir/) ;
 4. l'**analyse des certificats** et la décision de conformité ;
 5. la gestion des **non-conformités** (que faire des mesures effectuées avec un instrument ensuite jugé hors tolérance).
+
+## Les instruments de mesure de base
+
+En métrologie dimensionnelle, quelques instruments reviennent partout :
+
+- le [pied à coulisse](https://b-metrology.com/categorie-produit/instruments-de-mesure/pied-a-coulisse/) ([notre guide](/blog/pied-a-coulisse-guide-choix-et-verification/)) pour les mesures courantes au centième de millimètre ;
+- le [micromètre](https://b-metrology.com/categorie-produit/instruments-de-mesure/micrometre-exterieur/) ([notre guide](/blog/micrometre-guide-utilisation-et-etalonnage/)) pour mesurer au micron ;
+- le [comparateur](https://b-metrology.com/categorie-produit/instruments-de-mesure/comparateur/) pour mesurer des écarts et des défauts de forme ;
+- les [cales étalon](https://b-metrology.com/categorie-produit/instruments-de-tracage-et-controles/cale-etalon/) ([notre guide](/blog/cales-etalon-grades-et-utilisation/)) pour étalonner les précédents ;
+- le [rugosimètre](https://b-metrology.com/categorie-produit/machines-et-appareils-de-mesure/rugosimetre/) ([notre guide](/blog/rugosimetre-ra-rz-comment-mesurer/)) pour l'état de surface.
+
+Vous cherchez à vous équiper ? Découvrez les [instruments de mesure](https://b-metrology.com/categorie-produit/instruments-de-mesure/) de la boutique B Metrology, et pour l'étalonnage ou la réparation, les [services de B MESURE](https://bmesure.fr/services/).
 
 ## Questions fréquentes
 

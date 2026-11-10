@@ -3,7 +3,7 @@ title: ISO/IEC 17025 et ISO 10012 : quelle norme pour votre métrologie ?
 description: Comparaison des normes ISO/IEC 17025 (compétence des laboratoires) et ISO 10012 (système de management des mesures), avec les cas d'usage et la place de l'ISO 9001.
 date: 2026-10-29
 category: Normes et accréditation
-related: raccordement-metrologique-tracabilite,qu-est-ce-que-la-metrologie,periodicite-etalonnage-comment-la-definir
+related: raccordement-metrologique-tracabilite,periodicite-etalonnage-comment-la-definir,cales-etalon-grades-et-utilisation
 ---
 
 ## Deux normes, deux objectifs
@@ -42,6 +42,10 @@ L'ISO 9001 (chapitre 7.1.5 sur les ressources de surveillance et de mesure) exig
 - Vous **vendez des étalonnages ou des essais** : ISO/IEC 17025, avec accréditation si le marché l'exige.
 - Vous **utilisez des instruments** en production : ISO 9001 avec une démarche inspirée de l'ISO 10012.
 - Vous avez des exigences sectorielles (aéronautique, automobile, pharma) : consultez le référentiel de votre donneur d'ordres.
+
+## Équiper et faire étalonner votre parc d'instruments
+
+Quelle que soit la norme, vos instruments doivent être identifiés, étalonnés et raccordés. Pour le dimensionnel, cela concerne en priorité les [pieds à coulisse](https://b-metrology.com/categorie-produit/instruments-de-mesure/pied-a-coulisse/), [micromètres](https://b-metrology.com/categorie-produit/instruments-de-mesure/micrometre-exterieur/), [comparateurs](https://b-metrology.com/categorie-produit/instruments-de-mesure/comparateur/), [cales étalon](https://b-metrology.com/categorie-produit/instruments-de-tracage-et-controles/cale-etalon/) et [rugosimètres](https://b-metrology.com/categorie-produit/machines-et-appareils-de-mesure/rugosimetre/). La boutique [B Metrology](https://b-metrology.com/) fournit le matériel, et [B MESURE](https://bmesure.fr/services/) assure l'étalonnage COFRAC ou standard, la réparation et les certificats.
 
 ## Questions fréquentes
 

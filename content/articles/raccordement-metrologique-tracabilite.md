@@ -3,7 +3,7 @@ title: Traçabilité métrologique et raccordement au SI : comment ça marche
 description: La traçabilité métrologique relie une mesure au Système international par une chaîne d'étalonnages. Explication de la chaîne (BIPM, LNE, COFRAC, laboratoires, atelier) et de ses exigences.
 date: 2026-10-22
 category: Normes et accréditation
-related: norme-iso-17025-et-iso-10012,etalonnage-verification-calibration,unites-si-et-redefinition-2019
+related: cales-etalon-grades-et-utilisation,norme-iso-17025-et-iso-10012,etalonnage-verification-calibration
 ---
 
 ## Définition
@@ -39,6 +39,12 @@ Un laboratoire accrédité selon l'**ISO/IEC 17025** a prouvé sa compétence te
 - Utiliser un certificat dont l'**incertitude n'est pas indiquée**.
 - Faire étalonner par un laboratoire dont la **portée** ne couvre pas la grandeur, l'étendue ou l'incertitude nécessaires.
 - Perdre la chaîne : un étalon de référence périmé rompt la traçabilité de tout ce qui a été mesuré avec lui.
+
+## Les cales étalon, maillon concret de la chaîne
+
+En dimensionnel, la chaîne aboutit en atelier à des [cales étalon](https://b-metrology.com/categorie-produit/instruments-de-tracage-et-controles/cale-etalon/), étalonnées par un laboratoire raccordé aux étalons nationaux. Ces cales servent ensuite à étalonner les [pieds à coulisse](https://b-metrology.com/categorie-produit/instruments-de-mesure/pied-a-coulisse/), [micromètres](https://b-metrology.com/categorie-produit/instruments-de-mesure/micrometre-exterieur/) et [comparateurs](https://b-metrology.com/categorie-produit/instruments-de-mesure/comparateur/). Notre [guide des cales étalon](/blog/cales-etalon-grades-et-utilisation/) détaille les grades et l'entretien.
+
+Pour obtenir des certificats avec raccordement et incertitude, consultez les [services d'étalonnage de B MESURE](https://bmesure.fr/services/) (étalonnage COFRAC ou standard).
 
 ## Questions fréquentes
 

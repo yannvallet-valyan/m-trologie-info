@@ -3,7 +3,7 @@ title: Les 7 unités de base du SI et la redéfinition de 2019
 description: Les sept unités de base du Système international (mètre, kilogramme, seconde, ampère, kelvin, mole, candela) et la révision de 2019 fondée sur des constantes fondamentales.
 date: 2026-11-08
 category: Fondamentaux
-related: qu-est-ce-que-la-metrologie,raccordement-metrologique-tracabilite,incertitude-de-mesure-guide
+related: raccordement-metrologique-tracabilite,cales-etalon-grades-et-utilisation,qu-est-ce-que-la-metrologie
 ---
 
 ## Le Système international d'unités
@@ -43,6 +43,10 @@ Pour un atelier ou un laboratoire industriel, **presque rien** : les valeurs des
 - **Hertz (Hz)** = s⁻¹ (fréquence)
 
 Le degré Celsius (°C) est une unité dérivée : T(°C) = T(K) − 273,15.
+
+## Du mètre à l'atelier
+
+Le mètre défini par la vitesse de la lumière se retrouve, via les étalons nationaux, dans les [cales étalon](https://b-metrology.com/categorie-produit/instruments-de-tracage-et-controles/cale-etalon/) puis dans les [pieds à coulisse](https://b-metrology.com/categorie-produit/instruments-de-mesure/pied-a-coulisse/) et [micromètres](https://b-metrology.com/categorie-produit/instruments-de-mesure/micrometre-exterieur/) de l'atelier. Voir notre guide sur la [traçabilité](/blog/raccordement-metrologique-tracabilite/) et sur les [cales étalon](/blog/cales-etalon-grades-et-utilisation/). Pour l'étalonnage de vos instruments, consultez les [services de B MESURE](https://bmesure.fr/services/).
 
 ## Questions fréquentes
 
