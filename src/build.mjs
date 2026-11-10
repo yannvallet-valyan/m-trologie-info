@@ -3,7 +3,9 @@ import { readFile, writeFile, mkdir, readdir, rm, cp } from 'node:fs/promises';
 import { join } from 'node:path';
 
 const cfg = JSON.parse(await readFile('site.config.json', 'utf8'));
-const BASE = (process.env.SITE_URL || cfg.url).replace(/\/$/, '');
+// Priorité : SITE_URL, puis le domaine de production Vercel (automatique), puis site.config.json
+const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+const BASE = (process.env.SITE_URL || (vercelHost ? `https://${vercelHost}` : cfg.url)).replace(/\/$/, '');
 const OUT = 'dist';
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');

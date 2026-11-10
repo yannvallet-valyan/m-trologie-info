@@ -1,7 +1,7 @@
 {
   "name": "Métrologie Info",
   "tagline": "Le guide francophone de la métrologie : étalonnage, incertitudes, normes.",
-  "url": "https://www.metrologie-info.fr",
+  "url": "https://metrologie-info.vercel.app",
   "lang": "fr",
   "locale": "fr_FR",
   "author": "Équipe Métrologie Info",
