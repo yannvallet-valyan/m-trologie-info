@@ -188,3 +188,8 @@ th{background:var(--fg);color:var(--bg)}
 .term dt{font-weight:800;font-size:1.15rem}
 .term dd{margin:.3rem 0 0;color:var(--mut)}
 .az a{min-width:2.2rem;text-align:center;padding:.3rem .5rem}
+
+.prose figure{margin:1.8rem 0}
+.prose figure.v{max-width:24rem}
+figure img{display:block;max-width:100%;height:auto;border:1px solid var(--bd);background:var(--soft)}
+figcaption{margin-top:.5rem;font-size:.88rem;color:var(--mut);border-left:3px solid var(--red);padding-left:.7rem}

@@ -119,6 +119,13 @@
       "shop": "https://b-metrology.com/categorie-produit/machines-et-appareils-de-mesure/rugosimetre/"
     },
     {
+      "name": "Profilomètre",
+      "blurb": "Profil, contour et rugosité sur une même pièce, en CNC.",
+      "article": "profilometre-mesure-de-profil-et-de-rugosite",
+      "shop": "https://bmesure.fr/profilometre/",
+      "shopLabel": "Voir sur B MESURE →"
+    },
+    {
       "name": "Cales étalon",
       "blurb": "Grades K, 0, 1, 2 : la référence de longueur d'atelier.",
       "article": "cales-etalon-grades-et-utilisation",
