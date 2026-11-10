@@ -1,7 +1,7 @@
 {
   "name": "Métrologie Info",
   "tagline": "Le guide francophone de la métrologie : étalonnage, incertitudes, normes.",
-  "url": "https://www.metrologie-info.fr",
+  "url": "https://metrologie-info.vercel.app",
   "lang": "fr",
   "locale": "fr_FR",
   "author": "Équipe Métrologie Info",
@@ -60,5 +60,6 @@
       "url": "https://b-metrology.com/categorie-produit/calibres-de-controles/tampon-filete-calibres-de-controles/"
     }
   ],
-  "servicesUrl": "https://bmesure.fr/services/"
+  "servicesUrl": "https://bmesure.fr/services/",
+  "googleSiteVerification": "KyIouz7zUVugk_rpRAUrknmXOhKZnFcY-AhOJX4nNYM"
 }

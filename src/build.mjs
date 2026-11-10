@@ -3,7 +3,9 @@ import { readFile, writeFile, mkdir, readdir, rm, cp } from 'node:fs/promises';
 import { join } from 'node:path';
 
 const cfg = JSON.parse(await readFile('site.config.json', 'utf8'));
-const BASE = (process.env.SITE_URL || cfg.url).replace(/\/$/, '');
+// Priorité : SITE_URL, puis le domaine de production Vercel (automatique), puis site.config.json
+const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+const BASE = (process.env.SITE_URL || (vercelHost ? `https://${vercelHost}` : cfg.url)).replace(/\/$/, '');
 const OUT = 'dist';
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -112,6 +114,7 @@ function layout({ path, title, description, body, type = 'website', jsonld = [],
 <link rel="canonical" href="${url}">
 <meta name="robots" content="${robots || 'index,follow,max-image-preview:large,max-snippet:-1'}">
 <meta name="theme-color" content="#c00000">
+${cfg.googleSiteVerification ? `<meta name="google-site-verification" content="${esc(cfg.googleSiteVerification)}">` : ''}
 <meta property="og:type" content="${type}">
 <meta property="og:site_name" content="${esc(cfg.name)}">
 <meta property="og:locale" content="${cfg.locale}">
@@ -350,4 +353,6 @@ await put('robots.txt', robots);
 await put('llms.txt', llms(arts));
 await put('llms-full.txt', llmsFull(arts));
 await put('_headers', headers);
+// Fichiers statiques copiés tels quels (vérification Google Search Console, etc.)
+await cp('public', OUT, { recursive: true }).catch(() => {});
 console.log(`OK : ${arts.length} articles, ${arts.length + 3} pages -> ${OUT}/ (${BASE})`);
