@@ -89,9 +89,10 @@ const css = (await readFile('src/style.css', 'utf8')).replace(/\/\*[\s\S]*?\*\//
 const ld = (o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`;
 const orgLd = { '@type': 'Organization', '@id': `${BASE}/#org`, name: cfg.name, url: `${BASE}/`, sameAs: cfg.partners.map((p) => p.url) };
 
-function layout({ path, title, description, body, type = 'website', jsonld = [], date, robots }) {
+function layout({ path, title, description, body, type = 'website', jsonld = [], robots }) {
   const url = `${BASE}${path}`;
   const fullTitle = path === '/' ? title : `${title} | ${cfg.name}`;
+  const p0 = cfg.partners[0];
   return `<!doctype html>
 <html lang="${cfg.lang}">
 <head>
@@ -101,7 +102,7 @@ function layout({ path, title, description, body, type = 'website', jsonld = [],
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${url}">
 <meta name="robots" content="${robots || 'index,follow,max-image-preview:large,max-snippet:-1'}">
-<meta name="theme-color" content="#0b3d91">
+<meta name="theme-color" content="#c00000">
 <meta property="og:type" content="${type}">
 <meta property="og:site_name" content="${esc(cfg.name)}">
 <meta property="og:locale" content="${cfg.locale}">
@@ -110,34 +111,39 @@ function layout({ path, title, description, body, type = 'website', jsonld = [],
 <meta property="og:url" content="${url}">
 <meta name="twitter:card" content="summary">
 <link rel="alternate" type="application/rss+xml" title="${esc(cfg.name)}" href="${BASE}/rss.xml">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b3d91'/%3E%3Cpath d='M6 22h20M9 22v-5M13 22v-8M17 22v-5M21 22v-8M25 22v-5' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23c00000'/%3E%3Cpath d='M6 23h20M9 23v-6M13 23v-9M17 23v-6M21 23v-9M25 23v-6' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E">
 <style>${css}</style>
 ${jsonld.map(ld).join('\n')}
 </head>
 <body>
 <a class="skip" href="#main">Aller au contenu</a>
-<header class="hd"><div class="w">
-<a class="logo" href="/">${esc(cfg.name)}</a>
-<nav aria-label="Navigation principale"><a href="/"${path === '/' ? ' aria-current="page"' : ''}>Présentation</a><a href="/blog/"${path.startsWith('/blog') ? ' aria-current="page"' : ''}>Articles</a></nav>
+<header class="hd"><div class="w bar">
+<a class="logo" href="/"><span class="mono" aria-hidden="true">MI</span>${esc(cfg.name)}</a>
+<nav aria-label="Navigation principale"><a href="/"${path === '/' ? ' aria-current="page"' : ''}>Présentation</a><a href="/blog/"${path.startsWith('/blog') ? ' aria-current="page"' : ''}>Articles</a><a class="btn sm" href="${p0.url}">${esc(p0.name)} →</a></nav>
 </div></header>
-<main id="main" class="w">
+<main id="main">
 ${body}
 </main>
 <footer class="ft"><div class="w">
-<p><strong>${esc(cfg.name)}</strong> – ${esc(cfg.tagline)}</p>
-<p>Nos sites : ${cfg.partners.map((p) => `<a href="${p.url}">${esc(p.name)}</a>`).join(' · ')}</p>
-<p><a href="/blog/">Tous les articles</a> · <a href="/rss.xml">RSS</a> · <a href="/sitemap.xml">Plan du site</a> · <a href="/llms.txt">llms.txt</a></p>
+<div class="fcols">
+<div><p class="logo"><span class="mono" aria-hidden="true">MI</span>${esc(cfg.name)}</p><p>${esc(cfg.tagline)}</p></div>
+<div><p class="eyebrow">Explorer</p><ul><li><a href="/">Présentation</a></li><li><a href="/blog/">Tous les articles</a></li><li><a href="/rss.xml">Flux RSS</a></li><li><a href="/sitemap.xml">Plan du site</a></li></ul></div>
+<div><p class="eyebrow">Nos sites</p><ul>${cfg.partners.map((p) => `<li><a href="${p.url}">${esc(p.name)} →</a></li>`).join('')}</ul></div>
+</div>
 </div></footer>
 </body>
 </html>`;
 }
 
-const partnersBox = (heading = 'Passez de la théorie à la pratique') => `<aside class="cta" aria-label="Nos services">
+const partnersBox = (heading = 'Passez de la théorie à la pratique') => `<section class="band" aria-label="Nos services"><div class="w">
+<p class="eyebrow">Nos services</p>
 <h2>${heading}</h2>
-<div class="cards">${cfg.partners.map((p) => `<a class="card" href="${p.url}"><strong>${esc(p.name)} →</strong><span>${esc(p.text)}</span></a>`).join('')}</div>
-</aside>`;
+<div class="cards two">${cfg.partners.map((p) => `<a class="pcard" href="${p.url}"><strong>${esc(p.name)}</strong><span>${esc(p.text)}</span><span class="more">Découvrir ${esc(p.name)} →</span></a>`).join('')}</div>
+</div></section>`;
 
 const crumbs = (items) => ({ '@type': 'BreadcrumbList', itemListElement: items.map(([name, path], i) => ({ '@type': 'ListItem', position: i + 1, name, item: `${BASE}${path}` })) });
+
+const articleItem = (a) => `<li><a class="ac" href="/blog/${a.slug}/"><span class="tag">${esc(a.category)}</span><strong>${esc(a.title)}</strong><span class="desc">${esc(a.description)}</span><span class="meta">${dateFr(a.date)} · ${a.minutes} min</span><span class="more">Lire l'article →</span></a></li>`;
 
 // ---------- Pages ----------
 function homePage(arts) {
@@ -146,35 +152,46 @@ function homePage(arts) {
     ['À quoi sert un étalonnage ?', 'Un étalonnage compare un instrument à un étalon raccordé au SI et établit son écart avec une incertitude associée. Il permet de savoir si l\'instrument est apte à l\'usage prévu.'],
     ['À qui s\'adresse ce site ?', 'Aux responsables qualité, techniciens, ingénieurs, laboratoires et étudiants qui souhaitent comprendre et appliquer la métrologie simplement.'],
   ];
-  const body = `<section class="hero">
-<h1>La métrologie expliquée simplement</h1>
-<p class="lead">${esc(cfg.name)} est un guide francophone gratuit sur la science de la mesure : <strong>étalonnage</strong>, <strong>incertitudes</strong>, <strong>traçabilité</strong>, <strong>normes ISO</strong> et <strong>unités SI</strong>. Des articles clairs, pensés pour l'industrie et les laboratoires.</p>
-<p><a class="btn" href="/blog/">Lire les articles</a></p>
-</section>
-<section>
-<h2>Qu'est-ce que la métrologie ?</h2>
-<p>La <strong>métrologie</strong> est la science de la mesure et de ses applications. Elle assure que le résultat d'une mesure est <strong>fiable, comparable et traçable</strong> : un mètre mesuré à Lyon doit être le même mètre qu'à Tokyo. Sans métrologie, pas de pièces interchangeables, pas de dosage de médicaments fiable, pas d'échanges commerciaux équitables.</p>
-<p>On distingue trois grands domaines : la <strong>métrologie scientifique</strong> (définition des unités et étalons primaires), la <strong>métrologie industrielle</strong> (maîtrise des instruments en production et en contrôle qualité) et la <strong>métrologie légale</strong> (instruments réglementés : balances commerciales, compteurs, pompes à carburant).</p>
-</section>
-<section>
-<h2>Ce que vous trouverez ici</h2>
-<ul class="topics">
-<li><strong>Fondamentaux</strong> – vocabulaire, unités SI, principes de la mesure.</li>
-<li><strong>Étalonnage et vérification</strong> – méthodes, périodicité, certificats.</li>
-<li><strong>Incertitudes</strong> – comprendre et exprimer la qualité d'une mesure.</li>
-<li><strong>Normes et accréditation</strong> – ISO/IEC 17025, ISO 10012, COFRAC.</li>
+  const p0 = cfg.partners[0];
+  const topics = ['Étalonnage', 'Incertitudes', 'Traçabilité', 'ISO/IEC 17025', 'ISO 10012', 'Unités SI', 'COFRAC', 'Vérification', 'Périodicité'];
+  const strip = topics.map((t) => `<span>${t}</span>`).join('');
+  const body = `<section class="hero"><div class="w">
+<p class="badge"><i aria-hidden="true"></i>Guide gratuit en français · mis à jour 2026</p>
+<h1>La métrologie,<br><em>expliquée</em> simplement.</h1>
+<p class="lead">${esc(cfg.name)} décrypte la science de la mesure : <strong>étalonnage</strong>, <strong>incertitudes</strong>, <strong>traçabilité</strong>, <strong>normes ISO</strong> et <strong>unités SI</strong>. Des articles clairs, pensés pour l'industrie et les laboratoires.</p>
+<p class="actions"><a class="btn" href="/blog/">Lire les articles →</a><a class="btn ghost" href="${p0.url}">Découvrir ${esc(p0.name)}</a></p>
+<ul class="stats">
+<li><strong>7</strong><span>unités de base du SI</span></li>
+<li><strong>k = 2</strong><span>≈ 95 % de confiance</span></li>
+<li><strong>${arts.length}</strong><span>guides pratiques en ligne</span></li>
 </ul>
-</section>
-<section>
-<h2>Derniers articles</h2>
-<ul class="list">${arts.slice(0, 6).map(articleItem).join('')}</ul>
-<p><a href="/blog/">Voir tous les articles →</a></p>
-</section>
+</div></section>
+<div class="strip" aria-hidden="true"><div class="track">${strip}${strip}</div></div>
+<section class="sec"><div class="w">
+<p class="eyebrow">À propos</p>
+<h2>Une science qui garantit que <em>1 mm</em> reste 1 mm partout.</h2>
+<div class="two-col">
+<div><p>La <strong>métrologie</strong> est la science de la mesure et de ses applications. Elle assure que le résultat d'une mesure est <strong>fiable, comparable et traçable</strong> : un mètre mesuré à Lyon doit être le même mètre qu'à Tokyo.</p>
+<p>Sans métrologie, pas de pièces interchangeables, pas de dosage de médicaments fiable, pas d'échanges commerciaux équitables.</p></div>
+<ul class="cards three">
+<li class="card"><strong>Scientifique</strong><span>Définir les unités et les étalons primaires.</span></li>
+<li class="card"><strong>Industrielle</strong><span>Maîtriser les instruments en production et en contrôle qualité.</span></li>
+<li class="card"><strong>Légale</strong><span>Encadrer balances, compteurs et pompes à carburant.</span></li>
+</ul>
+</div>
+</div></section>
+<section class="sec soft"><div class="w">
+<p class="eyebrow">Articles</p>
+<h2>Derniers <em>guides</em> publiés</h2>
+<ul class="grid">${arts.slice(0, 6).map(articleItem).join('')}</ul>
+<p class="actions"><a class="btn ghost" href="/blog/">Voir tous les articles →</a></p>
+</div></section>
 ${partnersBox()}
-<section>
-<h2>Questions fréquentes</h2>
+<section class="sec"><div class="w narrow">
+<p class="eyebrow">FAQ</p>
+<h2>Questions <em>fréquentes</em></h2>
 ${faq.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}
-</section>`;
+</div></section>`;
   const jsonld = [{
     '@context': 'https://schema.org',
     '@graph': [
@@ -187,13 +204,16 @@ ${faq.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}
   return layout({ path: '/', title: 'Métrologie : étalonnage, incertitudes, normes – guide complet', description: cfg.description, body, jsonld });
 }
 
-const articleItem = (a) => `<li><a href="/blog/${a.slug}/"><strong>${esc(a.title)}</strong></a><span class="meta">${esc(a.category)} · ${dateFr(a.date)} · ${a.minutes} min</span><span>${esc(a.description)}</span></li>`;
-
 function blogIndex(arts) {
   const cats = [...new Set(arts.map((a) => a.category))];
-  const body = `<h1>Articles sur la métrologie</h1>
+  const body = `<section class="hero small"><div class="w">
+<p class="eyebrow">Articles</p>
+<h1>Tout sur la <em>métrologie</em>.</h1>
 <p class="lead">Guides pratiques sur l'étalonnage, les incertitudes de mesure, la traçabilité et les normes qualité.</p>
-${cats.map((c) => `<section><h2>${esc(c)}</h2><ul class="list">${arts.filter((a) => a.category === c).map(articleItem).join('')}</ul></section>`).join('')}
+</div></section>
+<section class="sec"><div class="w">
+${cats.map((c) => `<h2 class="cat">${esc(c)}</h2><ul class="grid">${arts.filter((a) => a.category === c).map(articleItem).join('')}</ul>`).join('')}
+</div></section>
 ${partnersBox()}`;
   return layout({
     path: '/blog/', title: 'Articles sur la métrologie', description: 'Tous nos articles sur la métrologie : étalonnage, incertitudes de mesure, traçabilité, ISO 17025, unités SI. Guides pratiques en français.', body,
@@ -208,18 +228,23 @@ ${partnersBox()}`;
 function articlePage(a, all) {
   const url = `${BASE}/blog/${a.slug}/`;
   const rel = (a.related.length ? a.related.map((s) => all.find((x) => x.slug === s)).filter(Boolean) : all.filter((x) => x.slug !== a.slug && x.category === a.category)).filter((x) => x.slug !== a.slug).slice(0, 3);
-  const body = `<nav class="bc" aria-label="Fil d'Ariane"><a href="/">Accueil</a> › <a href="/blog/">Articles</a> › <span>${esc(a.category)}</span></nav>
+  const body = `<div class="w narrow">
+<nav class="bc" aria-label="Fil d'Ariane"><a href="/">Accueil</a> / <a href="/blog/">Articles</a> / <span>${esc(a.category)}</span></nav>
 <article>
-<header>
+<header class="ah">
+<span class="tag">${esc(a.category)}</span>
 <h1>${esc(a.title)}</h1>
-<p class="meta">${esc(a.category)} · Publié le <time datetime="${a.date}">${dateFr(a.date)}</time>${a.updated ? ` · Mis à jour le <time datetime="${a.updated}">${dateFr(a.updated)}</time>` : ''} · ${a.minutes} min de lecture</p>
 <p class="lead">${esc(a.description)}</p>
+<p class="meta">Publié le <time datetime="${a.date}">${dateFr(a.date)}</time>${a.updated ? ` · Mis à jour le <time datetime="${a.updated}">${dateFr(a.updated)}</time>` : ''} · ${a.minutes} min de lecture</p>
 </header>
 ${a.toc.length > 2 ? `<nav class="toc" aria-label="Sommaire"><strong>Sommaire</strong><ol>${a.toc.map((t) => `<li><a href="#${t.id}">${esc(t.text)}</a></li>`).join('')}</ol></nav>` : ''}
+<div class="prose">
 ${a.html}
+</div>
 </article>
+</div>
 ${partnersBox()}
-${rel.length ? `<section><h2>À lire aussi</h2><ul class="list">${rel.map(articleItem).join('')}</ul></section>` : ''}`;
+${rel.length ? `<section class="sec soft"><div class="w"><p class="eyebrow">À lire aussi</p><ul class="grid">${rel.map(articleItem).join('')}</ul></div></section>` : ''}`;
   const graph = [
     { '@type': 'Article', '@id': `${url}#article`, headline: a.title, description: a.description, datePublished: a.date, dateModified: a.updated || a.date, inLanguage: cfg.lang, mainEntityOfPage: url, url, author: { '@type': 'Organization', name: cfg.author, url: `${BASE}/` }, publisher: { '@id': `${BASE}/#org` }, articleSection: a.category, wordCount: stripMd(a.body).split(/\s+/).length },
     orgLd,
@@ -229,7 +254,7 @@ ${rel.length ? `<section><h2>À lire aussi</h2><ul class="list">${rel.map(articl
   return layout({ path: `/blog/${a.slug}/`, title: a.title, description: a.description, body, type: 'article', jsonld: [{ '@context': 'https://schema.org', '@graph': graph }] });
 }
 
-const notFound = () => layout({ path: '/404.html', title: 'Page introuvable', description: 'Cette page n\'existe pas.', robots: 'noindex', body: '<h1>Page introuvable</h1><p>Cette page n\'existe pas. <a href="/">Retour à l\'accueil</a> ou <a href="/blog/">tous les articles</a>.</p>' });
+const notFound = () => layout({ path: '/404.html', title: 'Page introuvable', description: 'Cette page n\'existe pas.', robots: 'noindex', body: '<section class="hero small"><div class="w"><h1>Page <em>introuvable</em>.</h1><p class="lead">Cette page n\'existe pas.</p><p class="actions"><a class="btn" href="/">Retour à l\'accueil</a><a class="btn ghost" href="/blog/">Tous les articles</a></p></div></section>' });
 
 // ---------- Fichiers SEO / IA ----------
 const sitemap = (urls) => `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(([p, d]) => `<url><loc>${BASE}${p}</loc><lastmod>${d}</lastmod></url>`).join('\n')}\n</urlset>\n`;
