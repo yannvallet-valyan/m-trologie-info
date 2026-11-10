@@ -1,0 +1,12 @@
+{
+  "name": "metrologie-info",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Site statique ultra léger sur la métrologie",
+  "scripts": {
+    "build": "node src/build.mjs",
+    "serve": "node src/build.mjs && node src/serve.mjs"
+  },
+  "engines": { "node": ">=18" }
+}

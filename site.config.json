@@ -1,0 +1,21 @@
+{
+  "name": "Métrologie Info",
+  "tagline": "Le guide francophone de la métrologie : étalonnage, incertitudes, normes.",
+  "url": "https://www.metrologie-info.fr",
+  "lang": "fr",
+  "locale": "fr_FR",
+  "author": "Équipe Métrologie Info",
+  "description": "Métrologie Info explique la métrologie simplement : étalonnage, incertitudes de mesure, traçabilité, ISO 17025, unités SI. Articles pratiques pour l'industrie et les laboratoires.",
+  "partners": [
+    {
+      "name": "B-Métrologie",
+      "url": "https://www.b-metrologie.fr",
+      "text": "Étalonnage, vérification et conseil en métrologie pour l'industrie et les laboratoires."
+    },
+    {
+      "name": "BMesure",
+      "url": "https://www.bmesure.fr",
+      "text": "Instruments et solutions de mesure pour fiabiliser vos contrôles."
+    }
+  ]
+}
