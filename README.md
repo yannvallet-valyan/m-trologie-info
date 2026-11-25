@@ -1,6 +1,6 @@
 # Métrologie Info
 
-Site statique ultra léger (zéro JavaScript, zéro dépendance, CSS inline) : une page de présentation + des articles de blog sur la métrologie. Il met en avant **B-Métrologie** et **BMesure**.
+Site statique ultra léger (zéro JavaScript, zéro dépendance, CSS inline) : une page de présentation + des articles de blog sur la métrologie.
 
 ## Utilisation
 
@@ -11,7 +11,7 @@ npm run serve   # build + serveur local sur http://localhost:8080
 
 ## Configuration
 
-Éditez `site.config.json` : nom, **url du domaine** (`SITE_URL` peut aussi surcharger), adresses et textes de B-Métrologie / BMesure.
+Éditez `site.config.json` : nom, **url du domaine** (`SITE_URL` peut aussi surcharger), liens et textes.
 
 ## Ajouter un article
 

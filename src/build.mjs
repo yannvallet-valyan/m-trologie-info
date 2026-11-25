@@ -107,7 +107,7 @@ const bgLayer = `<div class="prog" aria-hidden="true"></div><div class="bg" aria
 const css = (await readFile('src/style.css', 'utf8')).replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s*([{}:;,>])\s*/g, '$1').replace(/;}/g, '}').trim();
 
 const ld = (o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`;
-const orgLd = { '@type': 'Organization', '@id': `${BASE}/#org`, name: cfg.name, url: `${BASE}/`, sameAs: cfg.partners.map((p) => p.url) };
+const orgLd = { '@type': 'Organization', '@id': `${BASE}/#org`, name: cfg.name, url: `${BASE}/`, };
 
 function layout({ path, title, description, body, type = 'website', jsonld = [], robots, image }) {
   const url = `${BASE}${path}`;
@@ -142,7 +142,7 @@ ${jsonld.map(ld).join('\n')}
 ${bgLayer}
 <header class="hd"><div class="w bar">
 <a class="logo" href="/"><span class="mono" aria-hidden="true">MI</span>${esc(cfg.name)}</a>
-<nav aria-label="Navigation principale"><a href="/"${path === '/' ? ' aria-current="page"' : ''}>Accueil</a><a href="/blog/"${path.startsWith('/blog') || path.startsWith('/rubrique') ? ' aria-current="page"' : ''}>Articles</a><a href="/glossaire/"${path === '/glossaire/' ? ' aria-current="page"' : ''}>Glossaire</a><a href="/a-propos/"${path === '/a-propos/' ? ' aria-current="page"' : ''}>À propos</a><a class="btn sm" href="${p0.url}">${esc(p0.name)} →</a></nav>
+<nav aria-label="Navigation principale"><a href="/"${path === '/' ? ' aria-current="page"' : ''}>Accueil</a><a href="/blog/"${path.startsWith('/blog') || path.startsWith('/rubrique') ? ' aria-current="page"' : ''}>Articles</a><a href="/glossaire/"${path === '/glossaire/' ? ' aria-current="page"' : ''}>Glossaire</a><a href="/a-propos/"${path === '/a-propos/' ? ' aria-current="page"' : ''}>À propos</a><a class="btn sm" href="${p0.url}">Boutique →</a></nav>
 </div></header>
 <main id="main">
 ${body}
@@ -151,7 +151,7 @@ ${body}
 <div class="fcols">
 <div><p class="logo"><span class="mono" aria-hidden="true">MI</span>${esc(cfg.name)}</p><p>${esc(cfg.tagline)}</p></div>
 <div><p class="eyebrow">Explorer</p><ul><li><a href="/">Présentation</a></li><li><a href="/blog/">Tous les articles</a></li><li><a href="/glossaire/">Glossaire</a></li><li><a href="/a-propos/">À propos</a></li><li><a href="/rss.xml">Flux RSS</a></li><li><a href="/sitemap.xml">Plan du site</a></li></ul></div>
-<div><p class="eyebrow">Nos sites</p><ul>${cfg.partners.map((p) => `<li><a href="${p.url}">${esc(p.name)} →</a></li>`).join('')}<li><a href="${cfg.servicesUrl}">Étalonnage COFRAC →</a></li></ul></div>
+<div><p class="eyebrow">Liens utiles</p><ul>${cfg.partners.map((p) => `<li><a href="${p.url}">${esc(p.name)} →</a></li>`).join('')}<li><a href="${cfg.servicesUrl}">Étalonnage COFRAC →</a></li></ul></div>
 <div><p class="eyebrow">Boutique</p><ul>${cfg.categories.slice(0, 5).map((c) => `<li><a href="${c.url}">${esc(c.name)}</a></li>`).join('')}</ul></div>
 </div>
 </div></footer>
@@ -159,11 +159,11 @@ ${body}
 </html>`;
 }
 
-const partnersBox = (heading = 'Passez de la théorie à la pratique') => `<section class="band" aria-label="Nos services"><div class="w">
-<p class="eyebrow">Nos services</p>
+const partnersBox = (heading = 'Ressources et services utiles') => `<section class="band" aria-label="Pour aller plus loin"><div class="w">
+<p class="eyebrow">Pour aller plus loin</p>
 <h2>${heading}</h2>
-<div class="cards two">${cfg.partners.map((p) => `<a class="pcard" href="${p.url}"><strong>${esc(p.name)}</strong><span>${esc(p.text)}</span><span class="more">Découvrir ${esc(p.name)} →</span></a>`).join('')}</div>
-<p class="eyebrow chipt">Catégories populaires</p>
+<div class="cards two">${cfg.partners.map((p) => `<a class="pcard" href="${p.url}"><strong>${esc(p.name)}</strong><span>${esc(p.text)}</span><span class="more">Accéder à ${esc(p.name)} →</span></a>`).join('')}</div>
+<p class="eyebrow chipt">Catégories d'instruments</p>
 <ul class="chips">${cfg.categories.map((c) => `<li><a href="${c.url}">${esc(c.name)}</a></li>`).join('')}</ul>
 </div></section>`;
 
@@ -181,7 +181,7 @@ function homePage(arts) {
     ['Qu\'est-ce que la métrologie ?', 'La métrologie est la science de la mesure et de ses applications. Elle garantit que les mesures sont justes, comparables et reconnues, quel que soit le lieu ou l\'instrument.'],
     ['À quoi sert un étalonnage ?', 'Un étalonnage compare un instrument à un étalon raccordé au SI et établit son écart avec une incertitude associée. Il permet de savoir si l\'instrument est apte à l\'usage prévu.'],
     ['À qui s\'adresse ce site ?', 'Aux responsables qualité, techniciens, ingénieurs, laboratoires et étudiants qui souhaitent comprendre et appliquer la métrologie simplement.'],
-    ['Qui édite Métrologie Info ?', 'Métrologie Info est édité par l\'équipe de B MESURE, spécialiste en métrologie dimensionnelle, qui exploite aussi la boutique B Metrology.'],
+    ['Les guides sont-ils gratuits ?', 'Oui. Tous les articles et le glossaire de Métrologie Info sont en accès libre, sans inscription.'],
   ];
   const p0 = cfg.partners[0], p1 = cfg.partners[1];
   const topics = ['Pied à coulisse', 'Micromètre', 'Rugosimètre', 'Cales étalon', 'Étalonnage', 'Incertitudes', 'Traçabilité', 'ISO/IEC 17025', 'Unités SI', 'COFRAC'];
@@ -192,9 +192,9 @@ function homePage(arts) {
   const cnt = (r) => arts.filter((a) => a.category === r).length;
   const bySlug = (s) => arts.find((a) => a.slug === s);
   const body = `<section class="hero"><div class="w">
-<p class="badge"><i aria-hidden="true"></i>Le magazine francophone de la mesure</p>
+<p class="badge"><i aria-hidden="true"></i>Le site d'information sur la métrologie</p>
 <h1>La référence de la <em>métrologie</em>.</h1>
-<p class="lead">Étalonnage, incertitudes, traçabilité, normes ISO, instruments de mesure : des guides rigoureux et lisibles, rédigés par des spécialistes de la métrologie dimensionnelle.</p>
+<p class="lead">Étalonnage, incertitudes, traçabilité, normes ISO, instruments de mesure : des guides rigoureux et lisibles, pour comprendre et appliquer la métrologie.</p>
 <p class="actions"><a class="btn" href="/blog/">Explorer les guides →</a><a class="btn ghost" href="/glossaire/">Parcourir le glossaire</a></p>
 </div></section>
 <div class="strip" aria-hidden="true"><div class="track">${strip}${strip}</div></div>
@@ -222,12 +222,11 @@ function homePage(arts) {
 <ul class="chips light">${glossary.slice(0, 14).map((g) => `<li><a href="/glossaire/#${slugify(g.term)}">${esc(g.term)}</a></li>`).join('')}<li><a href="/glossaire/"><strong>Tout le glossaire →</strong></a></li></ul>
 </div></section>
 <section class="sec"><div class="w">
-<p class="eyebrow">Pourquoi nous faire confiance</p>
-<h2>Une expertise <em>de terrain</em></h2>
+<p class="eyebrow">Nos références</p>
+<h2>Des guides <em>sourcés</em></h2>
 <ul class="trust">
-<li><strong>25 ans+</strong><span>d'expérience en métrologie dimensionnelle chez <a href="${p1.url}">B MESURE</a></span></li>
-<li><strong>20 000+</strong><span>références d'instruments sur <a href="${p0.url}">B Metrology</a> (Mahr, Tesa, Insize, Accretech)</span></li>
-<li><strong>COFRAC</strong><span>étalonnages accrédités ou standard, réparation et certificats</span></li>
+<li><strong>Dimensionnel</strong><span>pied à coulisse, micromètre, rugosimètre, cales étalon, profilomètre</span></li>
+<li><strong>COFRAC</strong><span>étalonnage accrédité ou standard, certificats, périodicité</span></li>
 <li><strong>ISO · VIM · GUM</strong><span>nos guides s'appuient sur les normes et référentiels internationaux</span></li>
 </ul>
 <p><a href="/a-propos/">Notre démarche éditoriale →</a></p>
@@ -275,7 +274,6 @@ ${partnersBox()}`;
 }
 
 function aboutPage() {
-  const [p0, p1] = cfg.partners;
   const body = `<section class="hero small"><div class="w narrow">
 <nav class="bc" aria-label="Fil d'Ariane"><a href="/">Accueil</a> / <span>À propos</span></nav>
 <p class="eyebrow">À propos</p>
@@ -283,10 +281,10 @@ function aboutPage() {
 <p class="lead">${esc(cfg.name)} a une ambition : devenir le site de référence francophone pour comprendre et appliquer la métrologie.</p>
 </div></section>
 <section class="sec"><div class="w narrow prose">
-<h2>Qui sommes-nous ?</h2>
-<p>${esc(cfg.name)} est édité par l'équipe de <a href="${p1.url}">${esc(p1.name)}</a>, spécialiste en métrologie dimensionnelle depuis plus de 25 ans, installé à Saint-Sorlin-en-Valloire (Drôme). Nous exploitons aussi la boutique en ligne <a href="${p0.url}">${esc(p0.name)}</a>, qui distribue des instruments de mesure Mahr, Tesa, Insize et Accretech.</p>
-<h2>Transparence</h2>
-<p>Ce site est édité par des acteurs de la métrologie. Nous mentionnons nos services et notre boutique lorsque ces liens sont utiles au lecteur : <a href="${p0.url}">${esc(p0.name)}</a> pour acheter un instrument, <a href="${cfg.servicesUrl}">${esc(p1.name)}</a> pour l'étalonnage ou la réparation. Les guides eux-mêmes restent gratuits et neutres sur les marques.</p>
+<h2>Notre objectif</h2>
+<p>${esc(cfg.name)} est un site d'information sur la métrologie : étalonnage, incertitudes de mesure, traçabilité, normes et instruments de mesure dimensionnelle. Il s'adresse aux responsables qualité, techniciens, ingénieurs, laboratoires et étudiants.</p>
+<h2>Ressources externes</h2>
+<p>Certains articles renvoient vers des ressources externes (boutiques d'instruments, services d'étalonnage) lorsque ces liens sont utiles au lecteur. Les guides eux-mêmes restent gratuits et neutres sur les marques.</p>
 <h2>Nos sources</h2>
 <ul>
 <li>Vocabulaire international de métrologie, VIM (JCGM 200)</li>
@@ -296,13 +294,11 @@ function aboutPage() {
 <li>Brochure du Bureau international des poids et mesures sur le SI</li>
 </ul>
 <h2>Mises à jour et corrections</h2>
-<p>Chaque article affiche sa date de publication et, le cas échéant, sa date de mise à jour. Si vous repérez une erreur ou une imprécision, contactez-nous : nous la corrigeons rapidement.</p>
-<h2>Nous contacter</h2>
-<p>Pour une question technique, un devis d'étalonnage ou un conseil de choix d'instrument : <a href="https://b-metrology.com/contact-us/">formulaire de contact B Metrology</a> ou <a href="${p1.url}">${esc(p1.name)}</a>.</p>
+<p>Chaque article affiche sa date de publication et, le cas échéant, sa date de mise à jour. Si vous repérez une erreur ou une imprécision, signalez-la : elle sera corrigée rapidement.</p>
 </div></section>
 ${partnersBox()}`;
   return layout({
-    path: '/a-propos/', title: 'À propos et démarche éditoriale', description: `Qui édite ${cfg.name} ? Notre équipe, nos sources (VIM, GUM, ISO), notre politique de mises à jour et notre transparence sur les liens vers B Metrology et B MESURE.`, body,
+    path: '/a-propos/', title: 'À propos et démarche éditoriale', description: `Objectif du site ${cfg.name}, sources utilisées (VIM, GUM, ISO) et politique de mises à jour des articles.`, body,
     jsonld: [{ '@context': 'https://schema.org', '@graph': [{ '@type': 'AboutPage', name: 'À propos', url: `${BASE}/a-propos/`, inLanguage: cfg.lang, isPartOf: { '@id': `${BASE}/#site` } }, orgLd, crumbs([['Accueil', '/'], ['À propos', '/a-propos/']])] }],
   });
 }
@@ -392,7 +388,7 @@ const llms = (arts) => `# ${cfg.name}
 
 > ${cfg.description}
 
-Site francophone sur la métrologie, édité en lien avec ${cfg.partners.map((p) => `${p.name} (${p.url})`).join(' et ')}.
+Site francophone d'information sur la métrologie.
 
 ## Pages principales
 - [Présentation](${BASE}/): présentation du site et de la métrologie
@@ -403,7 +399,7 @@ Site francophone sur la métrologie, édité en lien avec ${cfg.partners.map((p)
 ## Articles
 ${arts.map((a) => `- [${a.title}](${BASE}/blog/${a.slug}/): ${a.description}`).join('\n')}
 
-## Sites partenaires
+## Ressources externes
 ${cfg.partners.map((p) => `- [${p.name}](${p.url}): ${p.text}`).join('\n')}
 
 ## Contenu complet
